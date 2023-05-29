@@ -5,7 +5,7 @@ const connectDatabase = require('./config/database');
 // configure env
 dotenv.config({ path: 'backend/config/config.env' });
 
-// connect database
+// connecting to database
 connectDatabase();
 
 app.listen(process.env.PORT, () => {
