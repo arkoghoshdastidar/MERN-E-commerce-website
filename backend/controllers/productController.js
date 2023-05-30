@@ -2,58 +2,110 @@ const Product = require('../models/productModel');
 
 // create a new product
 const createProduct = async (req, res, next) => {
-    const product = await Product.create(req.body);
-    res.status(201).json({
-        product,
-        success: true
-    });
+    try {
+        const product = await Product.create(req.body);
+        res.status(201).json({
+            product,
+            success: true
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
 }
-
 
 // admin-route : get all the products
 const getAllProducts = async (req, res, next) => {
-    const products = await Product.find({});
-    res.status(200).json({
-        products: {
-            ...products
-        },
-        success: true
-    });
+    try {
+        const products = await Product.find({});
+        res.status(200).json({
+            products: {
+                ...products
+            },
+            success: true
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
 }
 
 // admin-route : update product
 const updateProduct = async (req, res, next) => {
-    let product = await Product.findById(req.params.id);
-    if (!product) {
-        return res.status(500).json({
-            success: false,
-            message: 'Product not found!'
+    try {
+        let product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(500).json({
+                success: false,
+                message: 'Product not found!'
+            });
+        }
+
+        product = await Product.findByIdAndUpdate(req.params.id, req.body, {
+            new: true,
+            runValidators: true
         });
+
+        res.status(200).json({
+            success: true,
+            product
+        });
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
     }
-    product = await Product.findByIdAndUpdate(req.params.id, req.body, {
-        new: true,
-        runValidators: true
-    });
-    res.status(200).json({
-        success: true,
-        product
-    });
 }
 
 // admin-route : delete product
 const deleteProduct = async (req, res, next) => {
-    let product = await Product.findById(req.params.id);
-    if(!product){
-        return res.status(500).json({
+    try {
+        let product = await Product.findById(req.params.id);
+
+        if (!product) {
+            return res.status(500).json({
+                success: false,
+                message: 'Product not found!'
+            });
+        }
+
+        await Product.findByIdAndRemove(req.params.id);
+        res.status(200).json({
+            success: true,
+            message: 'Product deleted successfully!'
+        })
+    } catch (err) {
+        res.status(500).json({
             success: false,
-            message: 'Product not found!'
-        });
+            message: err.message
+        })
     }
-    await Product.findByIdAndRemove(req.params.id);
-    res.status(200).json({
-        success: true,
-        message: 'Product deleted successfully!'
-    })
 }
 
-module.exports = { getAllProducts, createProduct, updateProduct, deleteProduct };
+const getProductDetails = async (req, res, next) => {
+    try {
+        const product = await Product.findById(req.params.id);
+        if (!product) {
+            return res.status(500).json({
+                success: false,
+                message: 'Product not found!'
+            })
+        }
+        res.status(200).json({
+            success: true,
+            product
+        })
+    } catch (err) {
+        res.status(500).json({
+            success: false,
+            message: err.message
+        })
+    }
+}
+
+module.exports = { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails };
