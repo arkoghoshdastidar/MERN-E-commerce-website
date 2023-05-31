@@ -4,7 +4,7 @@ const connectDatabase = () => {
     try {
         mongoose.connect(process.env.DB_URL);
         console.log('MongoDB connnected successfully!');
-    } catch (e) {
+    }catch (e) {
         console.log(e.message);
     }
 }
