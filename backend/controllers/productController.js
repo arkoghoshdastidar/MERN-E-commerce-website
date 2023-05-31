@@ -1,4 +1,5 @@
 const Product = require('../models/productModel');
+const ErrorHandler = require('../utils/errorHandler');
 
 // create a new product
 const createProduct = async (req, res, next) => {
@@ -9,10 +10,7 @@ const createProduct = async (req, res, next) => {
             success: true
         });
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: err.message
-        })
+        return next(new ErrorHandler(err.message, 500));
     }
 }
 
@@ -27,10 +25,7 @@ const getAllProducts = async (req, res, next) => {
             success: true
         });
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: err.message
-        })
+        return next(new ErrorHandler(err.message, 500));
     }
 }
 
@@ -39,10 +34,7 @@ const updateProduct = async (req, res, next) => {
     try {
         let product = await Product.findById(req.params.id);
         if (!product) {
-            return res.status(500).json({
-                success: false,
-                message: 'Product not found!'
-            });
+            return next(new ErrorHandler('Product not found!', 500));
         }
 
         product = await Product.findByIdAndUpdate(req.params.id, req.body, {
@@ -55,10 +47,7 @@ const updateProduct = async (req, res, next) => {
             product
         });
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: err.message
-        })
+        return next(new ErrorHandler(err.message, 500));
     }
 }
 
@@ -68,10 +57,7 @@ const deleteProduct = async (req, res, next) => {
         let product = await Product.findById(req.params.id);
 
         if (!product) {
-            return res.status(500).json({
-                success: false,
-                message: 'Product not found!'
-            });
+            return next(new ErrorHandler('Product not found!', 500));
         }
 
         await Product.findByIdAndRemove(req.params.id);
@@ -80,10 +66,7 @@ const deleteProduct = async (req, res, next) => {
             message: 'Product deleted successfully!'
         })
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: err.message
-        })
+        return next(new ErrorHandler(err.message, 500));
     }
 }
 
@@ -91,20 +74,15 @@ const getProductDetails = async (req, res, next) => {
     try {
         const product = await Product.findById(req.params.id);
         if (!product) {
-            return res.status(500).json({
-                success: false,
-                message: 'Product not found!'
-            })
+            return next(new ErrorHandler('Product not found!', 500));
         }
+
         res.status(200).json({
             success: true,
             product
         })
     } catch (err) {
-        res.status(500).json({
-            success: false,
-            message: err.message
-        })
+        return next(new ErrorHandler(err.message, 500));
     }
 }
 
