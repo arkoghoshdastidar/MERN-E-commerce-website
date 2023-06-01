@@ -19,13 +19,13 @@ const createProduct = async (req, res, next) => {
 const getAllProducts = async (req, res, next) => {
     try {
         const apiFeature = new ApiFeatures(Product.find(), req.query);
-        const products = await apiFeature.search().query;
+        let products = await apiFeature.search().filter().query;
         res.status(200).json({
             products: {
                 ...products
             },
             success: true
-        });  
+        });
     } catch (err) {
         return next(new ErrorHandler(err.message, 500));
     }

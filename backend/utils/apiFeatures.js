@@ -7,14 +7,22 @@ class ApiFeatures {
     }
 
     search(){
-        const keyword = (this.queryStr.name)?{
+        const keyword = (this.queryStr.keyword)?{
             name: {
-                $regex: this.queryStr.name,
+                $regex: this.queryStr.keyword,
                 $options: 'i'
             }
         }:{};
 
         this.query = this.query.find({...keyword});
+        return this;
+    }
+
+    filter(){
+        let newQueryStr = {...this.queryStr};
+        const removeProps = ["keyword", "page", "limit"];
+        removeProps.forEach(key => delete newQueryStr[key]);
+        this.query = this.query.find(newQueryStr);
         return this;
     }
 }
