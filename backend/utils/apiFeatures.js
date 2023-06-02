@@ -6,7 +6,7 @@ class ApiFeatures {
         this.queryStr = queryStr;
     }
 
-    search() {
+    search(){
         const keyword = (this.queryStr.keyword) ? {
             name: {
                 $regex: this.queryStr.keyword,
@@ -18,7 +18,7 @@ class ApiFeatures {
         return this;
     }
 
-    filter() {
+    filter(){
         let newQueryStr = { ...this.queryStr };
         // removing some properties which are not useful for the filter method
         const removeProps = ["keyword", "page", "limit"];
@@ -29,6 +29,13 @@ class ApiFeatures {
         newQueryStr = newQueryStr.replace(/\b(gt|gte|lt|lte)\b/g, (key) => `$${key}`);
         newQueryStr = JSON.parse(newQueryStr);
         this.query = this.query.find(newQueryStr);
+        return this;
+    }
+
+    pagination(resultPerPage){
+        const pageNumber = Number(this.queryStr.page) || 1;
+        const skipProducts = resultPerPage * (pageNumber - 1); 
+        this.query = this.query.limit(resultPerPage).skip(skipProducts);
         return this;
     }
 }
