@@ -15,7 +15,7 @@ const registerUser = async (req, res, next) => {
             user
         });
     } catch (err) {
-        res.next(new ErrorHandler(err.message, 500));
+        next(new ErrorHandler(err.message, 500));
     }
 }
 

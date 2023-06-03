@@ -1,6 +1,7 @@
 const mongoose = require('mongoose');
 const { Schema } = mongoose;
 const validator = require('validator');
+const bcrypt = require('bcryptjs');
 
 const userSchema = new Schema({
     name: {
@@ -30,7 +31,7 @@ const userSchema = new Schema({
             type: String,
             required: true
         }
-    }, 
+    },
     role: {
         type: String,
         default: 'user'
@@ -38,5 +39,11 @@ const userSchema = new Schema({
     resetPasswordToken: String,
     resetPasswordExpire: Date
 });
+
+userSchema.pre('save', async function (req, res, next) {
+    if (this.modifiedPaths().includes("password")) {
+        this.password = await bcrypt.hash(this.password, 10);
+    }
+})
 
 module.exports = mongoose.model('User', userSchema);
