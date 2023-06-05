@@ -37,8 +37,7 @@ const userSchema = new Schema({
         type: String,
         default: 'user'
     },
-    resetPasswordToken: String,
-    resetPasswordExpire: Date
+    resetPasswordToken: String
 });
 
 userSchema.pre('save', async function (req, res, next) {
@@ -59,5 +58,11 @@ userSchema.methods.getToken = function () {
 userSchema.methods.checkPassword = async function (enteredPassword) {
     return await bcrypt.compare(enteredPassword, this.password);
 }
+
+userSchema.methods.getResetPasswordToken = async function () {
+    return jwt.sign({ email: this.email }, process.env.JWT_SECRET_KEY, {
+        expiresIn: Date.now() + 15 * 60 * 1000
+    });
+}  
 
 module.exports = mongoose.model('User', userSchema);

@@ -1,6 +1,7 @@
 const User = require('../models/userModel');
 const ErrorHandler = require('../utils/errorHandler');
 const sendToken = require('../utils/jwtToken');
+const sendEmail = require('../utils/sendEmail');
 
 const registerUser = async (req, res, next) => {
     try {
@@ -55,4 +56,28 @@ const logoutUser = async (req, res, next) => {
     });
 }
 
-module.exports = { registerUser, loginUser, logoutUser };
+const resetPassword = async function (req, res, next) {
+    const email = req.body.email;
+    const user = await User.findOne({ email: email });
+    if (!user) {
+        return next(new Error('User not found!', 400));
+    }
+    try {
+        const resetPasswordToken = await user.getResetPasswordToken();
+        user.resetPasswordToken = resetPasswordToken;
+        await user.save();
+        const link = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + resetPasswordToken;
+        await sendEmail(user.email, link);
+
+        res.status(200).json({
+            success: true,
+            message: `Email successfully sent to ${user.email}`
+        });
+    } catch (err) {
+        user.resetPasswordToken = undefined;
+        await user.save({ validateBeforeSave: false });
+        return next(new ErrorHandler(err.message, 401));
+    }
+}
+
+module.exports = { registerUser, loginUser, logoutUser, resetPassword };
