@@ -5,6 +5,7 @@ const ErrorHandler = require('../utils/errorHandler');
 // create a new product
 const createProduct = async (req, res, next) => {
     try {
+        req.body.author = req.user._id;
         const product = await Product.create(req.body);
         res.status(201).json({
             product,
