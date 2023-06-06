@@ -1,33 +1,28 @@
 const nodemailer = require('nodemailer');
 
 const sendEmail = async function (email, link) {
-    const transporter = nodemailer.createTransport({
-        host: 'smtp.mail.yahoo.com',
-        port: 465,
-        service: 'yahoo',
-        secure: false,
+
+    let testAccount = await nodemailer.createTestAccount();
+
+    let transporter = nodemailer.createTransport({
+        host: "smtp.ethereal.email",
+        port: 587,
+        secure: false, // true for 465, false for other ports
         auth: {
-            user: process.env.MAIL_USERNAME,
-            pass: process.env.MAIL_PASSWORD
+            user: testAccount.user, // generated ethereal user
+            pass: testAccount.pass, // generated ethereal password
         },
-        debug: false,
-        logger: true
     });
 
-    const mailOptions = {
+    // send mail with defined transport object
+    let info = transporter.sendMail({
         from: process.env.MAIL_USERNAME,
         to: email,
-        text: 'Change the password by clicking on the below link \n\n' + link,
-        subject: 'E-commerce password change requested.'
-    };
-
-    transporter.sendMail(mailOptions, function (err, result) {
-        if (err) {
-            throw new Error(err);
-        } else {
-            return result;
-        }
+        subject: "Password reset for ecommerce website. Click on the given link.",
+        text: link,
     });
+    return info;
+
 }
 
 module.exports = sendEmail;

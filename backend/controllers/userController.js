@@ -67,12 +67,15 @@ const resetPassword = async function (req, res, next) {
         user.resetPasswordToken = resetPasswordToken;
         await user.save();
         const link = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + resetPasswordToken;
-        sendEmail(user.email, link);
+
+        // sending email
+        const result = await sendEmail(user.email, link);
 
         res.status(200).json({
             success: true,
-            message: `Email successfully sent to ${user.email}`
+            result
         });
+
     } catch (err) {
         user.resetPasswordToken = undefined;
         await user.save({ validateBeforeSave: false });
