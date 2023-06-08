@@ -36,8 +36,7 @@ const userSchema = new Schema({
     role: {
         type: String,
         default: 'user'
-    },
-    resetPasswordToken: String
+    }
 });
 
 userSchema.pre('save', async function (req, res, next) {
@@ -56,7 +55,7 @@ userSchema.methods.getToken = function () {
 }
 
 userSchema.methods.checkPassword = async function (enteredPassword) {
-    return await bcrypt.compare(enteredPassword, this.password);
+    return bcrypt.compare(enteredPassword, this.password);
 }
 
 userSchema.methods.getResetPasswordToken = async function () {

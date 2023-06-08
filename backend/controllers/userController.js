@@ -2,6 +2,7 @@ const User = require('../models/userModel');
 const ErrorHandler = require('../utils/errorHandler');
 const sendToken = require('../utils/jwtToken');
 const sendEmail = require('../utils/sendEmail');
+const jwt = require('jsonwebtoken');
 
 const registerUser = async (req, res, next) => {
     try {
@@ -34,7 +35,8 @@ const loginUser = async (req, res, next) => {
         }
 
         // check if password is a valid password of not
-        const isPasswordCorrect = user.checkPassword(password);
+        const isPasswordCorrect = await user.checkPassword(password);
+
         if (!isPasswordCorrect) {
             return next(new ErrorHandler("User not found", 401));
         }
@@ -64,7 +66,6 @@ const resetPassword = async function (req, res, next) {
     }
     try {
         const resetPasswordToken = await user.getResetPasswordToken();
-        user.resetPasswordToken = resetPasswordToken;
         await user.save();
         const link = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + resetPasswordToken;
 
@@ -73,14 +74,75 @@ const resetPassword = async function (req, res, next) {
 
         res.status(200).json({
             success: true,
-            result
+            result,
+            link
         });
 
     } catch (err) {
-        user.resetPasswordToken = undefined;
         await user.save({ validateBeforeSave: false });
         return next(new ErrorHandler(err.message, 401));
     }
 }
 
-module.exports = { registerUser, loginUser, logoutUser, resetPassword };
+const changePassword = async (req, res, next) => {
+    try {
+        const resetPasswordToken = req.params.resetPasswordToken;
+        const email = jwt.verify(resetPasswordToken, process.env.JWT_SECRET_KEY).email;
+
+        if (!email) {
+            return next(new ErrorHandler('Token expired', 400));
+        }
+        const user = await User.findOne({ email: email });
+
+        if (!user) {
+            return next(new ErrorHandler('Email not found', 400));
+        }
+
+        const password = req.body.password;
+        const confirmPassword = req.body.confirmPassword;
+        if (password !== confirmPassword) {
+            return next(new ErrorHandler('Password do not match', 400));
+        }
+
+        user.password = password;
+        await user.save();
+
+        sendToken(res, 200, user);
+
+    } catch (err) {
+        return next(new ErrorHandler(err.message, 500));
+    }
+}
+
+const getUserDetails = async (req, res, next) => {
+    const id = req.user.id;
+    const user = await User.findById(id);
+
+    res.status(200).json({
+        user
+    });
+}
+
+const updatePassword = async (req, res, next) => {
+    const user = req.user;
+    const oldPassword = req.body.oldPassword;
+    const newPassword = req.body.newPassword;
+    const confirmPassword = req.body.confirmPassword;
+
+    const isPasswordCorrect = await user.checkPassword(oldPassword);
+
+    if (!isPasswordCorrect) {
+        return next(new ErrorHandler('Old password is incorrect.', 400));
+    }
+
+    if (newPassword !== confirmPassword) {
+        return next(new ErrorHandler('New password does not match confirm password', 400));
+    }
+
+    user.password = newPassword;
+    await user.save();
+
+    sendToken(res, 200, user);
+}
+
+module.exports = { registerUser, loginUser, logoutUser, resetPassword, changePassword, getUserDetails, updatePassword };
