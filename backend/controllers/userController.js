@@ -145,4 +145,24 @@ const updatePassword = async (req, res, next) => {
     sendToken(res, 200, user);
 }
 
-module.exports = { registerUser, loginUser, logoutUser, resetPassword, changePassword, getUserDetails, updatePassword };
+const updateProfile = async (req, res, next) => {
+    try {
+        const userId = req.user._id;
+        const newProfile = await User.findByIdAndUpdate(userId, {
+            name: req.body.name,
+            email: req.body.email
+        }, {
+            new: true,
+            runValidation: true
+        });
+
+        res.status(200).json({
+            success: true,
+            newProfile: newProfile
+        });
+    } catch (err) {
+        next(new ErrorHandler('Could not update profile', 500));
+    }
+}
+
+module.exports = { registerUser, loginUser, logoutUser, resetPassword, changePassword, getUserDetails, updatePassword, updateProfile };
