@@ -66,6 +66,7 @@ const resetPassword = async function (req, res, next) {
     }
     try {
         const resetPasswordToken = await user.getResetPasswordToken();
+        user.resetPasswordToken = resetPasswordToken;
         await user.save();
         const link = req.protocol + '://' + req.get('host') + req.originalUrl + '/' + resetPasswordToken;
 
@@ -79,6 +80,7 @@ const resetPassword = async function (req, res, next) {
         });
 
     } catch (err) {
+        user.resetPasswordToken = undefined;
         await user.save({ validateBeforeSave: false });
         return next(new ErrorHandler(err.message, 401));
     }
@@ -165,4 +167,66 @@ const updateProfile = async (req, res, next) => {
     }
 }
 
-module.exports = { registerUser, loginUser, logoutUser, resetPassword, changePassword, getUserDetails, updatePassword, updateProfile };
+const getAllUsers = async (req, res, next) => {
+    try {
+        const users = await User.find();
+        res.status(200).json({
+            success: true,
+            users
+        });
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+const getUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(req.params.id);
+        if (!user) {
+            return next(new ErrorHandler('User not found', 400));
+        }
+        res.status(200).json({
+            success: true,
+            user
+        });
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+const updateUserRole = async (req, res, next) => {
+    try {
+        const newUser = await User.findByIdAndUpdate(req.params.id, {
+            email: req.body.email,
+            name: req.body.name,
+            role: req.body.role
+        },{
+            new: true,
+            runValidation: true
+        });
+
+        res.status(200).json({
+            success: true,
+            newUser
+        });
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+const deleteUserProfile = async (req, res, next) => {
+    try {
+        await User.findByIdAndDelete(req.params.id);
+        res.status(200).json({
+            success: true,
+            message: 'User profile deleted successfully'
+        });
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+module.exports = {
+    registerUser, loginUser, logoutUser, resetPassword, changePassword,
+    getUserDetails, updatePassword, updateProfile, getAllUsers, getUser, updateUserRole, deleteUserProfile
+};

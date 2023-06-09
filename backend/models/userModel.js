@@ -36,7 +36,8 @@ const userSchema = new Schema({
     role: {
         type: String,
         default: 'user'
-    }
+    },
+    resetPasswordToken: String
 });
 
 userSchema.pre('save', async function (req, res, next) {

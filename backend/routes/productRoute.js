@@ -5,11 +5,11 @@ const { getAllProducts, createProduct, updateProduct, deleteProduct, getProductD
 
 router.get('/products', getAllProducts);
 
-router.post('/product/new',isUserAuthenticated, authorizeRole("admin"), createProduct);
+router.post('/admin/product/new',isUserAuthenticated, authorizeRole("admin"), createProduct);
 
-router.put('/product/:id',isUserAuthenticated, authorizeRole("admin"), updateProduct);
+router.put('/admin/product/:id',isUserAuthenticated, authorizeRole("admin"), updateProduct);
 
-router.delete('/product/:id',isUserAuthenticated, authorizeRole("admin"), deleteProduct);
+router.delete('/admin/product/:id',isUserAuthenticated, authorizeRole("admin"), deleteProduct);
 
 router.get('/product/:id', getProductDetails);
 
