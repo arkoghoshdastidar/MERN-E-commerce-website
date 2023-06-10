@@ -117,7 +117,7 @@ const createProductReview = async (req, res, next) => {
         } else {
             product.reviews.push(review);
         }
-        
+
         product.numberOfReviews = product.reviews.length;
         let totalRating = 0;
         product.reviews.forEach((review) => {
@@ -136,4 +136,24 @@ const createProductReview = async (req, res, next) => {
     }
 }
 
-module.exports = { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails, createProductReview };
+// get all reviews of a product
+const getProductReviews = async (req, res, next) => {
+    const productId = req.query.productId;
+    try {
+        const product = await Product.findById(productId);
+        if (!product) {
+            return next(new ErrorHandler('Product not found!', 400));
+        }
+        res.status(200).json({
+            success: true,
+            reviews: product.reviews
+        });
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+// delete a product review
+
+
+module.exports = { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails, createProductReview, getProductReviews };
