@@ -154,6 +154,49 @@ const getProductReviews = async (req, res, next) => {
 }
 
 // delete a product review
+const deleteProductReview = async (req, res, next) => {
+    try {
+        const productId = req.query.productId;
+        const reviewId = req.query.reviewId;
+        const product = await Product.findById(productId);
 
+        if (!product) {
+            return next(new ErrorHandler('Product not found!', 400));
+        }
 
-module.exports = { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails, createProductReview, getProductReviews };
+        const reviews = product.reviews.filter(review => review._id.toString() !== reviewId.toString());
+
+        let totalRating = 0;
+        const numberOfReviews = reviews.length;
+
+        reviews.forEach((review) => {
+            totalRating += review.rating;
+        });
+
+        let rating = 0;
+
+        if (numberOfReviews !== 0) {
+            rating = totalRating / numberOfReviews;
+        }
+
+        const newProduct = await Product.findByIdAndUpdate(productId, {
+            reviews,
+            numberOfReviews,
+            rating
+        },
+        {
+            new: true,
+            runValidators: true
+        });
+
+        res.status(200).send({
+            success: true,
+            newProduct
+        });
+
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+module.exports = { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails, createProductReview, getProductReviews, deleteProductReview };
