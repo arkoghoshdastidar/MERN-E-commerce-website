@@ -4,6 +4,7 @@ const app = express();
 const errorMiddleware = require('./middlewares/error');
 const productRoute = require('./routes/productRoute');
 const userRoute = require('./routes/userRoutes');
+const orderRoute = require('./routes/orderRoute');
 
 app.use(express.json());
 app.use(cookieParser());
@@ -11,6 +12,7 @@ app.use(cookieParser());
 // Import routes
 app.use('/api/v1', productRoute);
 app.use('/api/v1', userRoute);
+app.use('/api/v1', orderRoute);
 
 // Error middleware
 app.use(errorMiddleware);
