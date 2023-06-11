@@ -90,9 +90,9 @@ const updateOrderStatus = async (req, res, next) => {
         if(!order){
             return next(new ErrorHandler('Order not found', 400));
         }
-        // if (order.orderStatus === 'Delivered') {
-        //     return next(new ErrorHandler('Product already delivered', 400));
-        // }
+        if (order.orderStatus === 'Delivered') {
+            return next(new ErrorHandler('Product already delivered', 400));
+        }
 
         const orderItems = order.orderItems;
         orderItems.forEach(async (item) => {
