@@ -25,4 +25,35 @@ const newOrder = async (req, res, next) => {
     }
 }
 
-module.exports = { newOrder };
+// get logged in user orders
+const getSingleOrder = async (req, res, next) => {
+    try {
+        const orders = await Order.findById(req.params.orderId).populate('user', 'name email');
+        if (!orders) {
+            return next(new ErrorHandler('No such order', 500));
+        }
+        res.status(200).json({
+            success: true,
+            orders
+        });
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+// get single order
+const myOrders = async (req, res, next) => {
+    try {
+        const orders = await Order.find({
+            user: req.user._id
+        });
+        res.status(200).json({
+            success: true,
+            orders
+        });
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+module.exports = { newOrder, getSingleOrder, myOrders };
