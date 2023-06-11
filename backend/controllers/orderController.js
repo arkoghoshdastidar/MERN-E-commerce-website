@@ -1,5 +1,12 @@
 const Order = require('../models/orderModel');
 const ErrorHandler = require('../utils/errorHandler');
+const Product = require('../models/productModel');
+
+const updateStock = async (productId, quantity) => {
+    const product = await Product.findById(productId);
+    product.stock -= quantity;
+    await product.save();
+}
 
 // create a new order
 const newOrder = async (req, res, next) => {
@@ -56,4 +63,53 @@ const myOrders = async (req, res, next) => {
     }
 }
 
-module.exports = { newOrder, getSingleOrder, myOrders };
+// get all orders 
+const getAllOrders = async (req, res, next) => {
+    try {
+        const orders = await Order.find();
+        let totalAmount = 0;
+
+        orders.forEach((order) => {
+            totalAmount += order.totalPrice;
+        })
+
+        res.status(200).json({
+            success: true,
+            orders,
+            totalAmount
+        });
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+// update order status 
+const updateOrderStatus = async (req, res, next) => {
+    try {
+        const order = await Order.findById(req.params.orderId);
+        if (order.orderStatus === 'Delivered') {
+            next(new ErrorHandler('Product already delivered', 400));
+        }
+
+        const orderItems = order.orderItems;
+        orderItems.forEach(async (item) => {
+            await updateStock(item.product, item.quantity);
+        });
+
+        order.orderStatus = req.body.status;
+
+        if (order.orderStatus === 'Delivered') {
+            order.deliveredAt = Date.now();
+        }
+
+        await order.save();
+
+        res.status(200).json({
+            success: true
+        });
+    } catch (err) {
+        next(new ErrorHandler(err.message, 500));
+    }
+}
+
+module.exports = { newOrder, getSingleOrder, myOrders, getAllOrders, updateOrderStatus };
