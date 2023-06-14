@@ -1,0 +1,13 @@
+.footer {
+    width: 100vw;
+    bottom: 0;
+    position: absolute;
+    text-align: center;
+    font-size: 1rem;
+    padding: 10px;
+}
+
+.contact-link {
+    color: black;
+    margin: 5px;
+}

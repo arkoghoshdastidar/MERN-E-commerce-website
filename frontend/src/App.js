@@ -1,9 +1,9 @@
-
-import Header from './components/layout/Header/Header';
-import webFont from 'webfontloader';
-import { useEffect } from 'react';
-import { BrowserRouter } from 'react-router-dom';
 import './App.css';
+import { BrowserRouter } from 'react-router-dom';
+import { useEffect } from 'react';
+import webFont from 'webfontloader';
+import Header from './components/layout/Header/Header';
+import Footer from './components/layout/Footer/Footer';
 
 function App() {
   useEffect(() => {
@@ -17,6 +17,8 @@ function App() {
   return (
     <BrowserRouter>
       <Header />
+      
+      <Footer />
     </BrowserRouter>
   );
 }
