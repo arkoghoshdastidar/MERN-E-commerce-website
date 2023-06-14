@@ -1,16 +1,23 @@
-:root{
+:root {
     --primary-color: #1ecbe1;
     --secondary-color: #e1341e;
     --primary-background-color: #f3f3f3;
+    --landing-page-bg: #f800ff;
 }
 
-*{
+* {
     box-sizing: border-box;
+    scroll-behavior: smooth;
 }
 
-body{
+body {
     margin: 0;
     padding: 0;
     font-family: 'Roboto';
     background-color: var(--primary-background-color);
+    overflow-x: hidden;
+}
+
+body::-webkit-scrollbar {
+    display: none;
 }

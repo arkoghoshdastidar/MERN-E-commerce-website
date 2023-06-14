@@ -1,7 +1,7 @@
 .header {
     display: flex;
     width: 100vw;
-    height: 15vmax;
+    height: 15vh;
     justify-content: space-between;
     align-items: center;
     padding: 10px;
