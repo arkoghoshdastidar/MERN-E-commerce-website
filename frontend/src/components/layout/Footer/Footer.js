@@ -11,10 +11,10 @@ const Footer = () => {
             <div>
                 All rights reserver <AiOutlineCopyrightCircle /> {date}
             </div>
-            <Link to='https://www.linkedin.com/in/arko-ghosh-dastidar-93a792202/' >
+            <Link to='https://www.linkedin.com/in/arko-ghosh-dastidar-93a792202/' target="_blank">
                 < BsLinkedin className={styles['contact-link']} />
             </Link>
-            <Link to='mailto:arkoghoshdastidar392000@gmail.com'>
+            <Link to='mailto:arkoghoshdastidar392000@gmail.com' target="_blank">
                 < CgMail className={styles['contact-link']} />
             </Link>
         </div>
