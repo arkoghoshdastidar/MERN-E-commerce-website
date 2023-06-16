@@ -5,8 +5,11 @@ import webFont from 'webfontloader';
 import Header from './components/layout/Header/Header';
 import Footer from './components/layout/Footer/Footer';
 import Home from './components/Home/Home';
+import { getProducts } from './actions/productActions.js';
+import { useDispatch } from 'react-redux';
 
 function App() {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     webFont.load({
@@ -14,7 +17,9 @@ function App() {
         'families': ['Roboto',]
       }
     });
-  }, []);
+
+    dispatch(getProducts());
+  }, [dispatch]);
 
   return (
     <BrowserRouter>
