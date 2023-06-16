@@ -7,12 +7,13 @@ import Footer from './components/layout/Footer/Footer';
 import Home from './components/Home/Home';
 
 function App() {
+
   useEffect(() => {
     webFont.load({
       google: {
         'families': ['Roboto',]
       }
-    })
+    });
   }, []);
 
   return (
