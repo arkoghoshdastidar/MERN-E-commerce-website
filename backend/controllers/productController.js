@@ -19,7 +19,7 @@ const createProduct = async (req, res, next) => {
 // admin-route : get all the products
 const getAllProducts = async (req, res, next) => {
     try {
-        const resultPerPage = 5;
+        const resultPerPage = 8;
         const productCount = await Product.countDocuments();
         const apiFeature = new ApiFeatures(Product.find(), req.query);
         let products = await apiFeature.search().filter().pagination(resultPerPage).query;
