@@ -1,15 +1,12 @@
 import styles from './Home.module.css';
 import { CgMouse } from "react-icons/cg";
 import Product from './Product.js';
-
-const product = {
-    name: 'T-shirt',
-    price: '$200',
-    _id: '1',
-    images: [{ url: 'https://th.bing.com/th/id/OIP.VX1qaQUtfLP73Mg3C3GkhgHaHa?pid=ImgDet&rs=1' }]
-};
+import { useSelector } from 'react-redux';
+import Loader from '../layout/Loader/Loader';
 
 const Home = () => {
+    const { loading, products, error, productCount } = useSelector(state => state.product);
+
     return (
         <>
             <div className={styles['banner']}>
@@ -21,21 +18,21 @@ const Home = () => {
                     </button>
                 </a>
             </div>
+            {
+                loading ? <Loader /> :
+                    <>
+                        <h2 className={styles['home-heading']} id='home-heading'>
+                            Featured Products
+                        </h2>
 
-            <h2 className={styles['home-heading']} id='home-heading'>
-                Featured Products
-            </h2>
-
-            <div className={styles['container']} id='container'>
-                <Product product={product}></Product>
-                <Product product={product}></Product>
-                <Product product={product}></Product>
-                <Product product={product}></Product>
-                <Product product={product}></Product>
-                <Product product={product}></Product>
-                <Product product={product}></Product>
-                <Product product={product}></Product>
-            </div>
+                        <div className={styles['container']} id='container'>
+                            {products && products.map((product) => {
+                                return <Product key={product._id} product={product}></Product>
+                            })
+                            }
+                        </div>
+                    </>
+            }
         </>
     )
 }

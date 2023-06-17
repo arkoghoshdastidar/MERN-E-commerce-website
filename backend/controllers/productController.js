@@ -22,11 +22,13 @@ const getAllProducts = async (req, res, next) => {
         const resultPerPage = 8;
         const productCount = await Product.countDocuments();
         const apiFeature = new ApiFeatures(Product.find(), req.query);
-        let products = await apiFeature.search().filter().pagination(resultPerPage).query;
+        let products = await apiFeature.search().filter().pagination(resultPerPage).query; 
+        
         res.status(200).json({
-            products: {
+            products: [
                 ...products
-            },
+            ]
+            ,
             success: true,
             productCount: productCount
         });

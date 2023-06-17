@@ -1,5 +1,6 @@
 .banner {
-    background-color: var(--landing-page-bg);
+    background-color: var(--primary-color);
+    color: var(--secondary-color);
     width: 100vw;
     height: 85vh;
     text-align: center;

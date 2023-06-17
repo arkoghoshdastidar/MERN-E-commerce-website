@@ -11,13 +11,13 @@ import {
 // action to get all products from database
 export const getProducts = () => {
     return async (dispatch) => {
-        try{
+        try {
             dispatch({
                 type: ALL_PRODUCTS_REQUEST
             });
 
             const { data } = await axios.get(BACKEND_HOSTNAME + '/api/v1/products');
-
+            
             dispatch({
                 type: ALL_PRODUCTS_SUCCESS,
                 payload: {
@@ -25,7 +25,7 @@ export const getProducts = () => {
                     productCount: data.productCount
                 }
             });
-        }catch(err){
+        } catch (err) {
             dispatch({
                 type: ALL_PRODUCTS_FAIL,
                 payload: {
@@ -33,14 +33,12 @@ export const getProducts = () => {
                 }
             });
         }
-    } 
+    }
 }
 
 // clear all the errors
 export const clearError = () => {
-    return (dispatch) => {
-        dispatch({
-            type: CLEAR_ERRORS
-        })
-    }
+    return {
+        type: CLEAR_ERRORS
+    };
 }
