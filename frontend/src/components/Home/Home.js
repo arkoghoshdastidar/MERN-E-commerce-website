@@ -3,9 +3,15 @@ import { CgMouse } from "react-icons/cg";
 import Product from './Product.js';
 import { useSelector } from 'react-redux';
 import Loader from '../layout/Loader/Loader';
+import { useAlert } from 'react-alert';
 
 const Home = () => {
     const { loading, products, error, productCount } = useSelector(state => state.product);
+    const alert = useAlert();
+
+    if(error){
+        alert.show(error);
+    }
 
     return (
         <>
