@@ -28,7 +28,7 @@ const Home = () => {
                 loading ? <Loader /> :
                     <>
                         <h2 className={styles['home-heading']} id='home-heading'>
-                            Featured Products
+                            Top Products
                         </h2>
 
                         <div className={styles['container']} id='container'>

@@ -2,6 +2,8 @@
     --primary-color: #6119e6;
     --secondary-color: black;
     --primary-background-color: #f3f3f3;
+    --danger-color: #E1341E;
+    --success-color: #13EC5A;
 }
 
 * {

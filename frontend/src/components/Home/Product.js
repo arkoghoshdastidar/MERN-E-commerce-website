@@ -6,8 +6,7 @@ const Product = ({ product }) => {
     const options = {
         edit: false,
         value: product.rating,
-        isHalf: true,
-        activeColor: 'tomato'
+        isHalf: true
     }
 
     return (
