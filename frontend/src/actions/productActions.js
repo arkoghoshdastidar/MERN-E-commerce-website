@@ -38,7 +38,7 @@ export const getProducts = () => {
         }
     }
 }
-
+  
 // get the product details of a product
 export const getProductDetails = (id) => {
     return async (dispatch, getState) => {
@@ -47,12 +47,12 @@ export const getProductDetails = (id) => {
                 type: PRODUCT_DETAILS_REQUEST
             });
 
-            const productDetails = await axios.get(`${BACKEND_HOSTNAME}/api/v1/product/${id}`);
+            const { data } = await axios.get(`${BACKEND_HOSTNAME}/api/v1/product/${id}`);
 
             dispatch({
                 type: PRODUCT_DETAILS_SUCCESS,
                 payload: {
-                    productDetails: productDetails
+                    productDetails: data.product
                 }
             })
 

@@ -1,0 +1,132 @@
+.container {
+    display: flex;
+    height: 85vh;
+    width: 100vw;
+    background-color: var(--primary-color);
+    justify-content: space-around;
+    align-items: center;
+}
+
+.carousel-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 60%;
+}
+
+.details-container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-start;
+    text-align: start;
+    width: 30%;
+    font-size: 1rem;
+}
+
+.details-container > div {
+    margin: 8px 0 0 0;
+}
+
+.details-container > button {
+    margin-top: 8px;
+}
+
+.large {
+    font-size: 2rem;
+}
+
+.image{
+    width: 700px;
+    height: 700px;
+    overflow: hidden;
+}
+
+@media screen and (max-width: 800px) {
+    .container {
+        height: 70vh;
+        flex-direction: column;
+        justify-content: center;
+    }
+
+    .image {
+        height: 220px;
+        width: 220px;
+    }
+
+    .carousel-container {
+        width: 100%;
+    }
+    
+    .details-container {
+        align-items: center;
+        width: 100%;
+        font-size: 0.8rem;
+    }
+
+    .large {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (max-width: 450px) {
+    .container {
+        height: 100vh;
+    }
+}
+
+@media screen and (min-width: 1500px) {
+    .image {
+        height: 900px;
+        width: 900px;
+    }
+
+    .large { 
+        font-size: 2.5rem;
+    }
+
+    .details-contaier {
+        font-size: 1.5rem;
+    }
+}
+
+@media screen and (min-width: 2500px) {
+    .image {
+        height: 1000px;
+        width: 1000px;
+    }
+
+    .large { 
+        font-size: 6rem;
+    }
+
+    .details-contaier {
+        font-size: 5rem;
+    }
+}
+
+@media screen and (max-height: 1200px) {
+    .container{
+        height: 100vh;
+    }
+
+    .image{
+        height: 600px;
+        width: 600px;
+    }
+
+    .details-contaier{
+        font-size: 1rem;
+    }
+
+    .large{
+        font-size: 1rem;
+    }
+}
+
+@media screen and (max-height: 600px){
+    .image{
+        height: 200px;
+        width: 200px;
+    }
+}
