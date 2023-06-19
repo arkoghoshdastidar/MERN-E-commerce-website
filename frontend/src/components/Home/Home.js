@@ -6,7 +6,7 @@ import Loader from '../layout/Loader/Loader';
 import { useAlert } from 'react-alert';
 
 const Home = () => {
-    const { loading, products, error, productCount } = useSelector(state => state.product);
+    const { loading, products, error, productCount } = useSelector(state => state.products);
     const alert = useAlert();
 
     if(error){
