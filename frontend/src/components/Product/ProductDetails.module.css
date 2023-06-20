@@ -1,8 +1,8 @@
-.danger{
+.danger {
     color: var(--danger-color);
 }
 
-.success{
+.success {
     color: var(--success-color);
 }
 
@@ -66,16 +66,18 @@ button {
     font-size: 2rem;
 }
 
-.image{
+.image {
     width: 40vmax;
 }
 
-.reviews-container{
+.reviews-container {
     width: 100%;
     margin: 15px 0 15px 0;
+    max-height: 50vh;
+    overflow-y: scroll;
 }
 
-.reviews-container > h2 {
+.reviews-container>h2 {
     margin: 0 auto;
     width: 80%;
     text-align: center;
@@ -85,14 +87,38 @@ button {
     padding-bottom: 1vmax;
 }
 
-@media screen and (max-width: 1000px){
-    .container{
+@media screen and (max-width: 1000px) {
+    .container {
         flex-direction: column;
     }
 
-    .carousel-container, .details-container{
+    .carousel-container,
+    .details-container {
         width: 100%;
         text-align: center;
         align-items: center;
     }
+}
+
+.reviews-container::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+}
+
+.reviews-container::-webkit-scrollbar-track {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.1);
+}
+
+.reviews-container::-webkit-scrollbar-thumb {
+    border-radius: 10px;
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.reviews-container::-webkit-scrollbar-thumb:hover {
+    background: rgba(0, 0, 0, 0.4);
+}
+
+.reviews-container::-webkit-scrollbar-thumb:active {
+    background: rgba(0, 0, 0, .9);
 }

@@ -24,11 +24,13 @@ function App() {
 
   return (
     <BrowserRouter>
-      <Header />
-      <Routes>
-        <Route exact path='/' element={<Home />}></Route>
-        <Route exact path='/product/:id' element={<ProductDetails />}></Route>
-      </Routes>
+      <div className="view-port">
+        <Header />
+        <Routes>
+          <Route exact path='/' element={<Home />}></Route>
+          <Route exact path='/product/:id' element={<ProductDetails />}></Route>
+        </Routes>
+      </div>
       <Footer />
     </BrowserRouter>
   );

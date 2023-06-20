@@ -8,16 +8,29 @@ import { Carousel } from 'react-responsive-carousel';
 import Loader from '../layout/Loader/Loader';
 import ReactStars from "react-rating-stars-component";
 import ReviewCard from './ReviewCard.js';
+import NoReview from './NoReview.js';
+import { useAlert } from 'react-alert'
+import { clearError } from '../../actions/productActions';
 
 const ProductDetails = () => {
     const [count, setCount] = useState(0);
     const params = useParams();
     const dispatch = useDispatch();
     const { product, loading, error } = useSelector(state => state.productDetails);
+    const alert = useAlert();
 
+    useEffect(() => {
+        dispatch(getProductDetails(params.id));
+    }, [dispatch, params.id]);
+
+    if (error) {
+        alert.show(error);
+        dispatch(clearError());
+    }
+    
     const options = {
         edit: true,
-        value: product.rating,
+        value: (product) ? product.rating : 0,
         isHalf: true,
         size: 32
     }
@@ -34,16 +47,12 @@ const ProductDetails = () => {
         }
     }
 
-    useEffect(() => {
-        dispatch(getProductDetails(params.id));
-    }, [dispatch, params.id]);
-
-    const productName = (product.name) ? product.name.toUpperCase() : "";
+    const productName = (product && product.name) ? product.name.toUpperCase() : " ";
 
     return (
         <>
             <div className={styles['container']}>
-                {loading ? <Loader /> :
+                {loading ? <Loader /> : product &&
                     <>
                         <div className={styles['carousel-container']}>
                             {product.images && <Carousel className={styles['image']}>
@@ -87,8 +96,11 @@ const ProductDetails = () => {
             <div className={styles['reviews-container']}>
                 <h2>Product Reviews</h2>
                 {
-                    !loading && product.reviews && product.reviews.length > 0 &&
+                    !loading && product && product.reviews && product.reviews.length > 0 &&
                     product.reviews.map((review) => <ReviewCard key={review._id} review={review} />)
+                }
+                {
+                    !loading && product && product.reviews && product.reviews.length === 0 && <NoReview />
                 }
             </div>
         </>

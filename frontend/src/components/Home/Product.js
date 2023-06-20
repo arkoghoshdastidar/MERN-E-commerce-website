@@ -9,12 +9,14 @@ const Product = ({ product }) => {
         isHalf: true
     }
 
+    const numOfReviews = product.reviews.length;
+
     return (
         <Link className={styles['product-card']} to={`product/${product._id}`}>
             <img src={product.images[0].url} alt={product.name} />
             <p>{product.name}</p>
             <div>
-                <ReactStars {...options} /> <span>({product.reviews.length} Reviews)</span>
+                <ReactStars {...options} /> <span>({numOfReviews <= 1 ? `${numOfReviews} Review` : `${numOfReviews} Reviews`})</span>
             </div>
             <span>₹ {product.price}</span>
         </Link>

@@ -2,16 +2,16 @@
     width: 80%;
     margin: auto;
     text-align: start;
-    padding: 1vmax;
+    padding: 2vmax;
 }
 
 .review-card > div{
     color: #212121f2;
-    font-size: 24px;
+    font-size: 1.8vmax;
     font-weight: 500;
 }
 
 .review-card > small{
     color: #282727d0;
-    font-size: 12px;
+    font-size: 1.2vmax;
 }

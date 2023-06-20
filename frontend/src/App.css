@@ -24,3 +24,8 @@ body {
 body::-webkit-scrollbar {
     display: none;
 }
+
+.view-port{
+    width: 100vw;
+    min-height: 95vh;
+}

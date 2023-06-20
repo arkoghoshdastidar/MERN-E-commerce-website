@@ -72,7 +72,9 @@ const productSchema = new Schema({
             },
             comment: {
                 type: String,
-                required: true
+                required: true,
+                maxLength: 500,
+                minLength: 50
             }
         }
     ]

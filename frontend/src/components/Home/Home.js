@@ -1,16 +1,19 @@
 import styles from './Home.module.css';
 import { CgMouse } from "react-icons/cg";
 import Product from './Product.js';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../layout/Loader/Loader';
 import { useAlert } from 'react-alert';
+import { clearError } from '../../actions/productActions';
 
 const Home = () => {
+    const dispatch = useDispatch();
     const { loading, products, error, productCount } = useSelector(state => state.products);
     const alert = useAlert();
 
     if(error){
         alert.show(error);
+        dispatch(clearError());
     }
 
     return (
