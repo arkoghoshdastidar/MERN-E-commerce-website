@@ -10,6 +10,7 @@ input {
     margin: 0;
     outline: none;
     border: none;
+    text-align: center;
 }
 
 input::-webkit-outer-spin-button,
@@ -67,6 +68,21 @@ button {
 
 .image{
     width: 40vmax;
+}
+
+.reviews-container{
+    width: 100%;
+    margin: 15px 0 15px 0;
+}
+
+.reviews-container > h2 {
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+    border-bottom: 0.5px solid #28272763;
+    color: #212121f2;
+    font-size: 2.5vmax;
+    padding-bottom: 1vmax;
 }
 
 @media screen and (max-width: 1000px){
