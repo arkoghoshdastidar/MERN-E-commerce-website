@@ -1,0 +1,21 @@
+.heading {
+    margin: 0 auto;
+    width: 80%;
+    text-align: center;
+    border-bottom: 0.5px solid #28272763;
+    color: #212121f2;
+    font-size: 2.5vmax;
+    padding-bottom: 1vmax;
+}
+
+.all-products {
+    display: flex;
+    margin: 2vmax auto;
+    width: 80vw;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.all-products > div:hover{
+    cursor: pointer;
+}

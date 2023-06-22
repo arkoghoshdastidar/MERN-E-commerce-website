@@ -15,7 +15,7 @@ const Header = () => {
             <div className={styles['container']}>
                 <Link className={styles['navlink']} to='/'>Home</Link>
 
-                <Link className={styles['navlink']} to='product'>Product</Link>
+                <Link className={styles['navlink']} to='products'>Products</Link>
 
                 <Link className={styles['navlink']} to='contact'>Contact</Link>
 

@@ -5,11 +5,17 @@ import { useSelector, useDispatch } from 'react-redux';
 import Loader from '../layout/Loader/Loader';
 import { useAlert } from 'react-alert';
 import { clearError } from '../../actions/productActions';
+import { useEffect } from 'react';
+import { getProducts } from '../../actions/productActions';
 
 const Home = () => {
     const dispatch = useDispatch();
     const { loading, products, error, productCount } = useSelector(state => state.products);
     const alert = useAlert();
+
+    useEffect(() => {
+        dispatch(getProducts());
+    }, [dispatch]);
 
     if(error){
         alert.show(error);
@@ -36,7 +42,7 @@ const Home = () => {
 
                         <div className={styles['container']} id='container'>
                             {products && products.map((product) => {
-                                return <Product key={product._id} product={product}></Product>
+                                return <Product key={product._id} disableLink={false} product={product}></Product>
                             })
                             }
                         </div>

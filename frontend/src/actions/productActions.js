@@ -12,14 +12,20 @@ import {
 } from '../constants/productConstants';
 
 // action to get all products from database
-export const getProducts = () => {
+export const getProducts = (keyword="") => {
     return async (dispatch) => {
         try {
             dispatch({
                 type: ALL_PRODUCTS_REQUEST
             });
 
-            const { data } = await axios.get(BACKEND_HOSTNAME + '/api/v1/products');
+            let link = BACKEND_HOSTNAME + `/api/v1/products?`;
+
+            if(keyword.length > 0){
+                link += `keyword=${keyword}`;
+            }
+
+            const { data } = await axios.get(link);
 
             dispatch({
                 type: ALL_PRODUCTS_SUCCESS,

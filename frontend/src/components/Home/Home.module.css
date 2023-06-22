@@ -87,6 +87,10 @@
     align-items: center;
 }
 
+.disable-link {
+    pointer-events: none;
+}
+
 @media screen and (max-width: 800px) {
     .banner {
         height: 70vh;

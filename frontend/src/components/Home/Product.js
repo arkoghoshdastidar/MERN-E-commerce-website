@@ -1,18 +1,18 @@
 import styles from './Home.module.css';
-import { Link } from 'react-router-dom'; 
+import { Link } from 'react-router-dom';
 import ReactStars from "react-rating-stars-component";
 
-const Product = ({ product }) => {
+const Product = ({ product, disableLink }) => {
     const options = {
         edit: false,
         value: product.rating,
         isHalf: true
     }
-
     const numOfReviews = product.reviews.length;
+    const linkClass = (disableLink) ? `${styles['product-card']} ${styles['disable-link']}` : styles['product-card'];
 
     return (
-        <Link className={styles['product-card']} to={`product/${product._id}`}>
+        <Link className={linkClass} to={`product/${product._id}`}>
             <img src={product.images[0].url} alt={product.name} />
             <p>{product.name}</p>
             <div>

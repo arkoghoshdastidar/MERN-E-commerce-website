@@ -2,7 +2,7 @@ const Product = require('../models/productModel');
 const ApiFeatures = require('../utils/apiFeatures');
 const ErrorHandler = require('../utils/errorHandler');
 
-// create a new product
+// admin-route : create a new product
 const createProduct = async (req, res, next) => {
     try {
         req.body.author = req.user._id;
@@ -16,7 +16,7 @@ const createProduct = async (req, res, next) => {
     }
 }
 
-// admin-route : get all the products
+// get all the products
 const getAllProducts = async (req, res, next) => {
     try {
         const resultPerPage = 8;
