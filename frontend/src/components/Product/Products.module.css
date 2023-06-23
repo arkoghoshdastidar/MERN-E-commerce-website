@@ -19,3 +19,9 @@
 .all-products > div:hover{
     cursor: pointer;
 }
+
+.pagination-container{
+    display: flex;
+    justify-content: center;
+    margin: 2vmax 0 2vmax 0;
+}

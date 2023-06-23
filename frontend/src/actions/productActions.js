@@ -12,17 +12,17 @@ import {
 } from '../constants/productConstants';
 
 // action to get all products from database
-export const getProducts = (keyword="") => {
+export const getProducts = (keyword="", pageNo=1) => {
     return async (dispatch) => {
         try {
             dispatch({
                 type: ALL_PRODUCTS_REQUEST
             });
 
-            let link = BACKEND_HOSTNAME + `/api/v1/products?`;
+            let link = BACKEND_HOSTNAME + `/api/v1/products?page=${pageNo}`;
 
             if(keyword.length > 0){
-                link += `keyword=${keyword}`;
+                link += `&keyword=${keyword}`;
             }
 
             const { data } = await axios.get(link);
@@ -31,7 +31,8 @@ export const getProducts = (keyword="") => {
                 type: ALL_PRODUCTS_SUCCESS,
                 payload: {
                     products: data.products,
-                    productCount: data.productCount
+                    productCount: data.productCount,
+                    resultPerPage: data.resultPerPage
                 }
             });
         } catch (err) {
