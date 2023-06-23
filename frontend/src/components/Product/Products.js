@@ -7,10 +7,17 @@ import { useAlert } from 'react-alert';
 import Product from '../Home/Product';
 import { useNavigate, useParams } from "react-router-dom";
 import Pagination from '@mui/material/Pagination';
+import Slider from '@mui/material/Slider';
+import NoReview from './NoReview';
 
 const Products = (props) => {
+    const MIN_PRICE = 100;
+    const MAX_PRICE = 10000;
+    const STEPS = 1000;
     const { loading, error, productCount, products, resultPerPage } = useSelector(state => state.products);
     const [pageNo, setPageNo] = useState(1);
+    const [price, setPrice] = useState([MIN_PRICE, MAX_PRICE]);
+    const [finalPrice, setFinalprice] = useState([MIN_PRICE, MAX_PRICE]);
     const dispatch = useDispatch();
     const alert = useAlert();
     const navigate = useNavigate();
@@ -18,8 +25,8 @@ const Products = (props) => {
     const count = (productCount && resultPerPage) ? Math.ceil(productCount / resultPerPage) : 0;
 
     useEffect(() => {
-        dispatch(getProducts(keyword, pageNo));
-    }, [dispatch, keyword, pageNo]);
+        dispatch(getProducts(keyword, pageNo, finalPrice));
+    }, [dispatch, keyword, pageNo, finalPrice]);
 
     if (error) {
         alert.show(error);
@@ -33,6 +40,25 @@ const Products = (props) => {
     const changePageNo = (e, pageNo) => {
         setPageNo(pageNo);
     }
+
+    const sliderHandler = (e, val) => {
+        setPrice(val);
+    }
+
+    const finalpriceHandler = (e, val) => {
+        setFinalprice(val);
+    }
+
+    const marks = [
+        {
+            value: MIN_PRICE,
+            label: `₹${MIN_PRICE}`
+        },
+        {
+            value: MAX_PRICE,
+            label: `₹${MAX_PRICE}`
+        }
+    ]
 
     return (
         <>
@@ -49,8 +75,33 @@ const Products = (props) => {
                             })
                         }
                     </div>
+
+                    {products.length === 0 && <NoReview text={"No Products"} />}
+
+                    <div className={styles['slider-container']}>
+                        <div>Filter Price</div>
+                        <Slider
+                            aria-label="Price filter"
+                            valueLabelDisplay="auto"
+                            min={MIN_PRICE}
+                            max={MAX_PRICE}
+                            marks={marks}
+                            value={price}
+                            step={STEPS}
+                            onChange={sliderHandler}
+                            onChangeCommitted={finalpriceHandler}
+                            color="primary"
+                        />
+                    </div>
+
                     {count > 1 && <div className={styles['pagination-container']}>
-                        <Pagination count={count} onChange={changePageNo} page={pageNo}/>
+                        <Pagination 
+                            count={count} 
+                            onChange={changePageNo} 
+                            page={pageNo} 
+                            color="primary"
+                            variant="outlined"
+                        />
                     </div>}
                 </>
             }

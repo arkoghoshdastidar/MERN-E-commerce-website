@@ -10,6 +10,15 @@ import { useDispatch } from 'react-redux';
 import ProductDetails from './components/Product/ProductDetails';
 import Products from './components/Product/Products';
 import Search from './components/Search/Search';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
+
+const theme = createTheme({
+  palette: {
+    primary: {
+      main: '#6119e6',
+    }
+  },
+});
 
 function App() {
   const dispatch = useDispatch();
@@ -25,19 +34,21 @@ function App() {
   }, [dispatch]);
 
   return (
-    <BrowserRouter>
-      <div className="view-port">
-        <Header />
-        <Routes>
-          <Route path='/' element={<Home />}></Route>
-          <Route path='/product/:id' element={<ProductDetails />}></Route>
-          <Route path='/products' element={<Products />}></Route>
-          <Route path='/products/:keyword' element={<Products />}></Route>
-          <Route path='/search' element={<Search />}></Route>
-        </Routes>
-      </div>
-      <Footer />
-    </BrowserRouter>
+    <ThemeProvider theme={theme}>
+      <BrowserRouter>
+        <div className="view-port">
+          <Header />
+          <Routes>
+            <Route path='/' element={<Home />}></Route>
+            <Route path='/product/:id' element={<ProductDetails />}></Route>
+            <Route path='/products' element={<Products />}></Route>
+            <Route path='/products/:keyword' element={<Products />}></Route>
+            <Route path='/search' element={<Search />}></Route>
+          </Routes>
+        </div>
+        <Footer />
+      </BrowserRouter>
+    </ThemeProvider>
   );
 }
 

@@ -100,7 +100,7 @@ const ProductDetails = () => {
                     product.reviews.map((review) => <ReviewCard key={review._id} review={review} />)
                 }
                 {
-                    !loading && product && product.reviews && product.reviews.length === 0 && <NoReview />
+                    !loading && product && product.reviews && product.reviews.length === 0 && <NoReview text={"No Reviews"} />
                 }
             </div>
         </>

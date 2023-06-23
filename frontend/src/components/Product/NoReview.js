@@ -1,10 +1,10 @@
 import styles from './NoReview.module.css';
 import { FaSadTear } from 'react-icons/fa';
 
-const NoReview = () => {
+const NoReview = ({ text }) => {
     return (
         <div className={styles['no-reviews']}>
-            <div>No Reviews</div>
+            <div>{text}</div>
             <FaSadTear />
         </div>
     )
