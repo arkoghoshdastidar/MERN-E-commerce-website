@@ -9,12 +9,12 @@ import { useNavigate, useParams } from "react-router-dom";
 import Pagination from '@mui/material/Pagination';
 import Slider from '@mui/material/Slider';
 import NoReview from './NoReview';
+import Sidebar from './Sidebar';
+import { MAX_PRICE, MIN_PRICE, STEPS } from '../../constants/global';
 
 const Products = (props) => {
-    const MIN_PRICE = 100;
-    const MAX_PRICE = 10000;
-    const STEPS = 1000;
     const { loading, error, productCount, products, resultPerPage } = useSelector(state => state.products);
+    const [category, setCategory] = useState(null);
     const [pageNo, setPageNo] = useState(1);
     const [price, setPrice] = useState([MIN_PRICE, MAX_PRICE]);
     const [finalPrice, setFinalprice] = useState([MIN_PRICE, MAX_PRICE]);
@@ -25,8 +25,8 @@ const Products = (props) => {
     const count = (productCount && resultPerPage) ? Math.ceil(productCount / resultPerPage) : 0;
 
     useEffect(() => {
-        dispatch(getProducts(keyword, pageNo, finalPrice));
-    }, [dispatch, keyword, pageNo, finalPrice]);
+        dispatch(getProducts(keyword, pageNo, finalPrice, category));
+    }, [dispatch, keyword, pageNo, finalPrice, category]);
 
     if (error) {
         alert.show(error);
@@ -49,6 +49,10 @@ const Products = (props) => {
         setFinalprice(val);
     }
 
+    const setCategoryHandler = (category) => {
+        setCategory(category);
+    }
+
     const marks = [
         {
             value: MIN_PRICE,
@@ -64,6 +68,7 @@ const Products = (props) => {
         <>
             {
                 loading ? <Loader /> : !error && <>
+                    <Sidebar setCategoryHandler={setCategoryHandler} />
                     <h2 className={styles['heading']}>All Products</h2>
                     <div className={styles['all-products']}>
                         {
@@ -95,10 +100,10 @@ const Products = (props) => {
                     </div>
 
                     {count > 1 && <div className={styles['pagination-container']}>
-                        <Pagination 
-                            count={count} 
-                            onChange={changePageNo} 
-                            page={pageNo} 
+                        <Pagination
+                            count={count}
+                            onChange={changePageNo}
+                            page={pageNo}
                             color="primary"
                             variant="outlined"
                         />

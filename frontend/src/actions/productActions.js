@@ -12,7 +12,7 @@ import {
 } from '../constants/productConstants';
 
 // action to get all products from database
-export const getProducts = (keyword="", pageNo=1, price=[0, 10000]) => {
+export const getProducts = (keyword="", pageNo=1, price=[0, 10000], category) => {
     return async (dispatch) => {
         try {
             dispatch({
@@ -21,7 +21,9 @@ export const getProducts = (keyword="", pageNo=1, price=[0, 10000]) => {
 
             let link = BACKEND_HOSTNAME + `/api/v1/products?page=${pageNo}&keyword=${keyword}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
 
-            console.log(link);
+            if(category) {
+                link += `&category=${category}`;
+            }
 
             const { data } = await axios.get(link);
 

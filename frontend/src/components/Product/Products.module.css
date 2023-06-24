@@ -2,8 +2,8 @@
     margin: 0 auto;
     width: 80%;
     text-align: center;
-    border-bottom: 0.5px solid #28272763;
-    color: #212121c4;
+    border-bottom: 0.5px solid #2827273b;
+    color: #212121b0;
     font-size: 2.5vmax;
     padding-bottom: 1vmax;
 }
@@ -38,4 +38,9 @@
     padding: 0.5vmax;
     font-size: 2.5vmax;
     color: #282727c6;
+}
+
+.sidebar{
+    text-align: center;
+    margin: 2vmax 0 2vmax 0;
 }
