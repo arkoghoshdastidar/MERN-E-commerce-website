@@ -12,14 +12,14 @@ import {
 } from '../constants/productConstants';
 
 // action to get all products from database
-export const getProducts = (keyword="", pageNo=1, price=[0, 10000], category) => {
+export const getProducts = (keyword="", pageNo=1, price=[0, 10000], category=null, rating=0) => {
     return async (dispatch) => {
         try {
             dispatch({
                 type: ALL_PRODUCTS_REQUEST
             });
 
-            let link = BACKEND_HOSTNAME + `/api/v1/products?page=${pageNo}&keyword=${keyword}&price[gte]=${price[0]}&price[lte]=${price[1]}`;
+            let link = BACKEND_HOSTNAME + `/api/v1/products?page=${pageNo}&keyword=${keyword}&price[gte]=${price[0]}&price[lte]=${price[1]}&rating[gte]=${rating}`;
 
             if(category) {
                 link += `&category=${category}`;

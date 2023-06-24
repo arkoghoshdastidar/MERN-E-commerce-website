@@ -16,31 +16,46 @@
     justify-content: center;
 }
 
-.all-products > div:hover{
+.all-products>div:hover {
     cursor: pointer;
 }
 
-.pagination-container{
+.pagination-container {
     display: flex;
     justify-content: center;
     margin: 2vmax 0 2vmax 0;
 }
 
-.slider-container{
+.slider-container {
     width: 30vmax;
     margin: auto;
 }
 
-.slider-container > div{
+.slider-container>div {
     text-align: center;
     width: 30vmax;
-    margin-bottom: 2vmax;
     padding: 0.5vmax;
     font-size: 2.5vmax;
     color: #282727c6;
+    margin-bottom: 0.5vmax;
 }
 
-.sidebar{
+.rating-container {
+    width: 30vmax;
+    margin: auto;
+    text-align: center;
+    margin-bottom: 2vmax;
+}
+
+.rating-container>div {
+    width: 30vmax;
+    padding: 0.5vmax;
+    font-size: 2vmax;
+    color: #282727c6;
+    margin-bottom: 0.5vmax;
+}
+
+.sidebar {
     text-align: center;
     margin: 2vmax 0 2vmax 0;
 }

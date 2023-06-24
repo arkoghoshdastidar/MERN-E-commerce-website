@@ -27,7 +27,7 @@ const Header = () => {
 
                 <Link className={styles['navlink']} to='cart'><AiOutlineShoppingCart /></Link>
 
-                <Link className={styles['navlink']} to='account'><VscAccount /></Link>
+                <Link className={styles['navlink']} to='login'><VscAccount /></Link>
             </div>
         </div>
     );
