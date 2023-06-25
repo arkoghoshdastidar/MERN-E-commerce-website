@@ -11,11 +11,13 @@ import Slider from '@mui/material/Slider';
 import NoReview from './NoReview';
 import Sidebar from './Sidebar';
 import { MAX_PRICE, MIN_PRICE, STEPS } from '../../constants/global';
+import Rating from '@mui/material/Rating';
 
-const Products = (props) => {
+const Products = () => {
     const { loading, error, productCount, products, resultPerPage } = useSelector(state => state.products);
     const [category, setCategory] = useState(null);
     const [pageNo, setPageNo] = useState(1);
+    const [rating, setRating] = useState(0);
     const [price, setPrice] = useState([MIN_PRICE, MAX_PRICE]);
     const [finalPrice, setFinalprice] = useState([MIN_PRICE, MAX_PRICE]);
     const dispatch = useDispatch();
@@ -25,8 +27,8 @@ const Products = (props) => {
     const count = (productCount && resultPerPage) ? Math.ceil(productCount / resultPerPage) : 0;
 
     useEffect(() => {
-        dispatch(getProducts(keyword, pageNo, finalPrice, category));
-    }, [dispatch, keyword, pageNo, finalPrice, category]);
+        dispatch(getProducts(keyword, pageNo, finalPrice, category, rating));
+    }, [dispatch, keyword, pageNo, finalPrice, category, rating]);
 
     if (error) {
         alert.show(error);
@@ -45,12 +47,16 @@ const Products = (props) => {
         setPrice(val);
     }
 
-    const finalpriceHandler = (e, val) => {
+    const finalPriceHandler = (e, val) => {
         setFinalprice(val);
     }
 
     const setCategoryHandler = (category) => {
         setCategory(category);
+    }
+
+    const ratingChangeHandler = (e, val) => {
+        setRating(val);
     }
 
     const marks = [
@@ -82,6 +88,16 @@ const Products = (props) => {
                     </div>
 
                     {products.length === 0 && <NoReview text={"No Products"} />}
+                    
+                    <div className={styles['rating-container']}>
+                        <div>Filter Rating</div>
+                        <Rating
+                            precision={0.5}
+                            value={rating}
+                            onChange={ratingChangeHandler}
+                            size="large"
+                        />
+                    </div>
 
                     <div className={styles['slider-container']}>
                         <div>Filter Price</div>
@@ -94,10 +110,11 @@ const Products = (props) => {
                             value={price}
                             step={STEPS}
                             onChange={sliderHandler}
-                            onChangeCommitted={finalpriceHandler}
+                            onChangeCommitted={finalPriceHandler}
                             color="primary"
                         />
                     </div>
+
 
                     {count > 1 && <div className={styles['pagination-container']}>
                         <Pagination
