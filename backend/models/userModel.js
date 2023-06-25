@@ -23,16 +23,6 @@ const userSchema = new Schema({
         required: [true, 'Please enter your password'],
         minLenght: [8, 'Password should be at least 8 characters long']
     },
-    avatar: {
-        public_id: {
-            type: String,
-            required: true
-        },
-        url: {
-            type: String,
-            required: true
-        }
-    },
     role: {
         type: String,
         default: 'user'
@@ -63,6 +53,6 @@ userSchema.methods.getResetPasswordToken = async function () {
     return jwt.sign({ email: this.email }, process.env.JWT_SECRET_KEY, {
         expiresIn: Date.now() + 15 * 60 * 1000
     });
-}  
+}
 
 module.exports = mongoose.model('User', userSchema);

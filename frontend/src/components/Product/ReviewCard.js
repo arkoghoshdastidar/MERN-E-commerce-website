@@ -1,5 +1,6 @@
 import styles from './ReviewCard.module.css';
 import ReactStars from "react-rating-stars-component";
+import { FaRegUserCircle } from "react-icons/fa";
 
 const ReviewCard = ({ review }) => {
     const options = {
@@ -12,8 +13,10 @@ const ReviewCard = ({ review }) => {
     return (
         <div className={styles['review-card']}>
             <div>
-                {review.name} <ReactStars {...options} />
+                <FaRegUserCircle/>
+                {review.name} 
             </div>
+            <ReactStars {...options} />
             <small>{review.comment}</small>
         </div>
     )
