@@ -1,5 +1,5 @@
 import './App.css';
-import { BrowserRouter, Route, Routes, Switch } from 'react-router-dom';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import { useEffect } from 'react';
 import webFont from 'webfontloader';
 import Header from './components/layout/Header/Header';
@@ -11,6 +11,7 @@ import ProductDetails from './components/Product/ProductDetails';
 import Products from './components/Product/Products';
 import Search from './components/Search/Search';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
+import LoginSignup from './components/LoginSignup/LoginSignup';
 
 const theme = createTheme({
   palette: {
@@ -44,6 +45,7 @@ function App() {
             <Route path='/products' element={<Products />}></Route>
             <Route path='/products/:keyword' element={<Products />}></Route>
             <Route path='/search' element={<Search />}></Route>
+            <Route path='/login' element={<LoginSignup />}></Route>
           </Routes>
         </div>
         <Footer />
