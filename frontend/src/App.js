@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import webFont from 'webfontloader';
 import Header from './components/layout/Header/Header';
 import Footer from './components/layout/Footer/Footer';
@@ -30,7 +30,7 @@ function App() {
         'families': ['Roboto',]
       }
     });
-
+    
     dispatch(getProducts());
   }, [dispatch]);
 

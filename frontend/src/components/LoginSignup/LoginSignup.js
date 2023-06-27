@@ -7,6 +7,7 @@ import { useSelector, useDispatch } from 'react-redux';
 import { useAlert } from 'react-alert';
 import { login, clearError, signup } from '../../actions/userActions';
 import Loader from '../layout/Loader/Loader';
+import { getToken } from '../../constants/global';
 
 const LoginSignup = () => {
     const [isLoggingIn, setIsLoggingIn] = useState(true);
@@ -50,6 +51,12 @@ const LoginSignup = () => {
         alert.show(error);
         dispatch(clearError());
     }
+
+    // const token = getToken();
+
+    // if(token){
+    //     return <div>Hello, User</div>
+    // }
 
     return (
         <div className={styles['login-signup-container']}>

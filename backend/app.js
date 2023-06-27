@@ -6,10 +6,14 @@ const productRoute = require('./routes/productRoute');
 const userRoute = require('./routes/userRoutes');
 const orderRoute = require('./routes/orderRoute');
 const cors = require('cors');
+const corsOptions = {
+    origin: true,
+    credentials: true
+};
 
 app.use(express.json());
 app.use(cookieParser());
-app.use(cors());
+app.use(cors(corsOptions));
 
 // Import routes
 app.use('/api/v1', productRoute);

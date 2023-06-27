@@ -1,25 +1,25 @@
 import {
-    LOGIN_FAIL,
-    LOGIN_REQUEST,
-    LOGIN_SUCCESS,
+    LOGIN_SIGNUP_FAIL,
+    LOGIN_SIGNUP_REQUEST,
+    LOGIN_SIGNUP_SUCCESS,
     CLEAR_ERROR
 } from '../constants/userConstants';
 
 export const userReducer = (state = { user: {} }, action) => {
     switch (action.type) {
-        case LOGIN_REQUEST:
+        case LOGIN_SIGNUP_REQUEST:
             return {
                 loading: true,
                 isAuthenticated: false
             }
-        case LOGIN_SUCCESS:
+        case LOGIN_SIGNUP_SUCCESS:
             return {
                 ...state,
                 loading: false,
                 isAuthenticated: true,
                 user: action.payload.user
             }
-        case LOGIN_FAIL:
+        case LOGIN_SIGNUP_FAIL:
             return {
                 ...state,
                 loading: false,
