@@ -3,7 +3,10 @@ import {
     LOGIN_SIGNUP_FAIL,
     LOGIN_SIGNUP_REQUEST,
     LOGIN_SIGNUP_SUCCESS,
-    CLEAR_ERROR
+    CLEAR_ERROR,
+    LOAD_USER_FAIL,
+    LOAD_USER_SUCCESS,
+    LOAD_USER_REQUEST
 } from '../constants/userConstants';
 import { BACKEND_HOSTNAME } from '../constants/global';
 
@@ -70,6 +73,29 @@ export const signup = (name, email, password) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: LOGIN_SIGNUP_FAIL, payload: {
+                err: err.response.data.error
+            }
+        })
+    }
+}
+
+// load user
+export const loadUser = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: LOAD_USER_REQUEST
+        });
+
+        const { data } = await axios.get(BACKEND_HOSTNAME + '/api/v1/me');
+
+        dispatch({
+            type: LOAD_USER_SUCCESS, payload: {
+                user: data
+            }
+        })
+    } catch (err) {
+        dispatch({
+            type: LOAD_USER_FAIL, payload: {
                 err: err.response.data.error
             }
         })

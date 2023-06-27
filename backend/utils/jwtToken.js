@@ -7,8 +7,9 @@ const sendToken = function (res, statusCode, user) {
         httpOnly: false
     }).json({
         success: true,
-        token
-    })
+        token,
+        userDetails: user
+    });
 }
 
 module.exports = sendToken;
