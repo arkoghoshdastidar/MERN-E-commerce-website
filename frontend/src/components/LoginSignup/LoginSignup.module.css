@@ -1,4 +1,4 @@
-.login-signup-container{
+.login-signup-container {
     width: 80%;
     margin: auto;
     display: flex;
@@ -7,21 +7,21 @@
     align-items: center;
 }
 
-.login-signup-container form{
+.login-signup-container form {
     border: 1px solid rgba(0, 0, 0, 0.129);
     border-radius: 5px;
     margin: 2vmax 0 2vmax 0;
     font-size: 1.25vmax;
 }
 
-.login-signup-container form div{
+.login-signup-container form div {
     display: flex;
     justify-content: space-between;
     align-items: center;
     margin: 2vmax;
 }
 
-.login-signup-container form label{
+.login-signup-container form label {
     padding: 1vmax;
     color: rgba(0, 0, 0, 0.756);
 }
@@ -32,12 +32,27 @@
     padding: 1vmax;
 }
 
+.loggedin-btn-group {
+    display: flex;
+    flex-direction: column;
+    width: 20%;
+    margin: auto;
+}
+
+.loggedin-btn-group>button {
+    margin: 1vmax 0 1vmax 0;
+}
+
 @media (max-width: 800px) {
-    .login-signup-container{
+    .login-signup-container {
         padding: 2vmax;
     }
-    
-    .login-signup-container form{
+
+    .login-signup-container form {
         font-size: 1.5vmax;
+    }
+
+    .loggedin-btn-group {
+        width: 40%;
     }
 }

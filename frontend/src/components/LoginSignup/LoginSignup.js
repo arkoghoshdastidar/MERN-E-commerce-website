@@ -1,12 +1,13 @@
 import styles from './LoginSignup.module.css';
-import { useState, useRef, useEffect } from 'react';
+import { useState, useRef } from 'react';
 import * as React from 'react';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 import { useSelector, useDispatch } from 'react-redux';
 import { useAlert } from 'react-alert';
-import { login, clearError, signup, loadUser } from '../../actions/userActions';
+import { login, clearError, signup, logoutUser } from '../../actions/userActions';
 import Loader from '../layout/Loader/Loader';
+import { useNavigate } from "react-router-dom"
 
 const LoginSignup = () => {
     const [isLoggingIn, setIsLoggingIn] = useState(true);
@@ -16,11 +17,13 @@ const LoginSignup = () => {
     const nameRef = useRef();
     const dispatch = useDispatch();
     const alert = useAlert();
-    const { error, isAuthenticated, loading } = useSelector(state => state.user);
+    const { error, isAuthenticated, loading, user } = useSelector(state => state.user);
+    const navigate = useNavigate();
 
-    useEffect(() => {
-        dispatch(loadUser());
-    }, [dispatch]);
+    const logoutHandler = () => {
+        dispatch(logoutUser());
+        alert.success('Logout successful');
+    }
 
     const formSubmitHandler = () => {
         // extracting values from the input fields
@@ -53,6 +56,19 @@ const LoginSignup = () => {
     if (error) {
         alert.show(error);
         dispatch(clearError());
+    }
+
+    if (isAuthenticated === true) {
+        return (
+            <div className={styles['loggedin-btn-group']}>
+                {
+                    user.user.role === 'admin' && <Button size="large" variant="contained" onClick={() => navigate('/dashboard')}>Dashboard</Button>
+                }
+                <Button size="large" variant="contained" onClick={() => navigate('/orders')}>Orders</Button>
+                <Button size="large" variant="contained" onClick={() => navigate('/account')}>Profile</Button>
+                <Button size="large" variant="contained" onClick={() => logoutHandler()}>Logout</Button>
+            </div>
+        )
     }
 
     return (

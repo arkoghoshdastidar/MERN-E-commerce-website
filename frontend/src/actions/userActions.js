@@ -6,7 +6,10 @@ import {
     CLEAR_ERROR,
     LOAD_USER_FAIL,
     LOAD_USER_SUCCESS,
-    LOAD_USER_REQUEST
+    LOAD_USER_REQUEST,
+    LOGOUT_USER_REQUEST,
+    LOGOUT_USER_SUCCESS,
+    LOGOUT_USER_FAIL
 } from '../constants/userConstants';
 import { BACKEND_HOSTNAME } from '../constants/global';
 
@@ -96,6 +99,27 @@ export const loadUser = () => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: LOAD_USER_FAIL, payload: {
+                err: err.response.data.error
+            }
+        })
+    }
+}
+
+// logout user
+export const logoutUser = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: LOGOUT_USER_REQUEST
+        });
+
+        await axios.get(BACKEND_HOSTNAME + '/api/v1/logout');
+
+        dispatch({
+            type: LOGOUT_USER_SUCCESS
+        })
+    } catch (err) {
+        dispatch({
+            type: LOGOUT_USER_FAIL, payload: {
                 err: err.response.data.error
             }
         })

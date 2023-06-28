@@ -8,7 +8,7 @@ const sendToken = function (res, statusCode, user) {
     }).json({
         success: true,
         token,
-        userDetails: user
+        user: user
     });
 }
 

@@ -1,6 +1,6 @@
 import './App.css';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import webFont from 'webfontloader';
 import Header from './components/layout/Header/Header';
 import Footer from './components/layout/Footer/Footer';
@@ -12,6 +12,7 @@ import Products from './components/Product/Products';
 import Search from './components/Search/Search';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LoginSignup from './components/LoginSignup/LoginSignup';
+import { loadUser } from './actions/userActions';
 
 const theme = createTheme({
   palette: {
@@ -30,7 +31,7 @@ function App() {
         'families': ['Roboto',]
       }
     });
-    
+    dispatch(loadUser());
     dispatch(getProducts());
   }, [dispatch]);
 
