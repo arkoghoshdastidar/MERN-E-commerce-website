@@ -11,7 +11,8 @@ import {
     LOGOUT_USER_REQUEST,
     UPDATE_USER_REQUEST,
     UPDATE_USER_FAIL,
-    UPDATE_USER_SUCCESS
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_RESET
 } from '../constants/userConstants';
 
 export const userReducer = (state = { user: {} }, action) => {
@@ -23,14 +24,8 @@ export const userReducer = (state = { user: {} }, action) => {
                 loading: true,
                 isAuthenticated: false
             }
-        case UPDATE_USER_REQUEST:
-            return {
-                loading: true,
-                isAuthenticated: true
-            }
         case LOGIN_SIGNUP_SUCCESS:
         case LOAD_USER_SUCCESS:
-        case UPDATE_USER_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -59,7 +54,6 @@ export const userReducer = (state = { user: {} }, action) => {
                 isAuthenticated: false
             }
         case LOGOUT_USER_FAIL:
-        case UPDATE_USER_FAIL:
             return {
                 ...state,
                 loading: false,
@@ -73,5 +67,44 @@ export const userReducer = (state = { user: {} }, action) => {
             }
         default:
             return { ...state };
+    }
+}
+
+export const profileReducer = (state = { profile: {} }, action) => {
+    switch (action.type) {
+        case UPDATE_USER_REQUEST:
+            return {
+                ...state,
+                loading: true,
+                isUpdated: false
+            }
+        case UPDATE_USER_SUCCESS:
+            return {
+                ...state,
+                loading: false,
+                isUpdated: true,
+                updatedUser: action.payload.user
+            }
+        case UPDATE_USER_RESET:
+            return {
+                ...state,
+                loading: false,
+                isUpdated: false
+            }
+        case UPDATE_USER_FAIL:
+            return {
+                ...state,
+                loading: false,
+                isUpdated: false,
+            }
+        case CLEAR_ERROR:
+            return {
+                ...state,
+                error: null
+            }
+        default:
+            return {
+                ...state
+            }
     }
 }

@@ -33,6 +33,7 @@ function App() {
         'families': ['Roboto',]
       }
     });
+    
     dispatch(loadUser());
     dispatch(getProducts());
   }, [dispatch]);

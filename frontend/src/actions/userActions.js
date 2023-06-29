@@ -12,7 +12,8 @@ import {
     LOGOUT_USER_FAIL,
     UPDATE_USER_REQUEST,
     UPDATE_USER_FAIL,
-    UPDATE_USER_SUCCESS
+    UPDATE_USER_SUCCESS,
+    UPDATE_USER_RESET
 } from '../constants/userConstants';
 import { BACKEND_HOSTNAME } from '../constants/global';
 
@@ -153,6 +154,13 @@ export const editProfile = (name, email) => async (dispatch) => {
                 err: err.response.data.error
             }
         })
+    }
+}
+
+// reseting profile
+export const resetProfile = () => {
+    return {
+        type: UPDATE_USER_RESET
     }
 }
 

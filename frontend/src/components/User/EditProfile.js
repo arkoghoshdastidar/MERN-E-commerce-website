@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useAlert } from 'react-alert';
 import Loader from '../layout/Loader/Loader';
 import { useNavigate } from 'react-router-dom';
-import { clearError, editProfile } from '../../actions/userActions';
+import { clearError, editProfile, loadUser, resetProfile } from '../../actions/userActions';
 import Button from '@mui/material/Button';
 import ButtonGroup from '@mui/material/ButtonGroup';
 
@@ -14,7 +14,8 @@ const EditProfile = () => {
     const navigate = useNavigate();
     const nameRef = useRef();
     const emailRef = useRef();
-    const { loading, isAuthenticated, error } = useSelector(state => state.user);
+    const { isAuthenticated } = useSelector(state => state.user);
+    const { error, isUpdated, loading, updatedUser } = useSelector(state => state.profile);
 
     useEffect(() => {
         if (isAuthenticated === false) {
@@ -27,14 +28,19 @@ const EditProfile = () => {
         dispatch(clearError());
     }
 
+    if (isUpdated) {
+        alert.info(`Updated user name : ${updatedUser.user.name} and email : ${updatedUser.user.email}`);
+        dispatch(loadUser());
+        dispatch(resetProfile());
+    }
+
     const formSubmitHandler = () => {
         const name = nameRef.current.value;
         const email = emailRef.current.value;
-        if(!name.trim().length || !email.trim().length){
+        if (!name.trim().length || !email.trim().length) {
             alert.info('Enter name/email to update');
-        }else{
+        } else {
             dispatch(editProfile(name, email));
-            navigate('/account');
         }
         nameRef.current.value = '';
         emailRef.current.value = '';
