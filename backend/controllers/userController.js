@@ -157,7 +157,7 @@ const updateProfile = async (req, res, next) => {
 
         res.status(200).json({
             success: true,
-            newProfile: newProfile
+            user: newProfile
         });
     } catch (err) {
         next(new ErrorHandler('Could not update profile', 500));

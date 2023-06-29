@@ -9,7 +9,10 @@ import {
     LOAD_USER_REQUEST,
     LOGOUT_USER_REQUEST,
     LOGOUT_USER_SUCCESS,
-    LOGOUT_USER_FAIL
+    LOGOUT_USER_FAIL,
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_FAIL,
+    UPDATE_USER_SUCCESS
 } from '../constants/userConstants';
 import { BACKEND_HOSTNAME } from '../constants/global';
 
@@ -120,6 +123,33 @@ export const logoutUser = () => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: LOGOUT_USER_FAIL, payload: {
+                err: err.response.data.error
+            }
+        })
+    }
+}
+
+// edit profile
+export const editProfile = (name, email) => async (dispatch) => {
+    try {
+        dispatch({
+            type: UPDATE_USER_REQUEST
+        });
+
+        const { data } = await axios.put(BACKEND_HOSTNAME + '/api/v1/me/update', {
+            name,
+            email
+        });
+
+        dispatch({
+            type: UPDATE_USER_SUCCESS,
+            payload: {
+                user: data
+            }
+        })
+    } catch (err) {
+        dispatch({
+            type: UPDATE_USER_FAIL, payload: {
                 err: err.response.data.error
             }
         })

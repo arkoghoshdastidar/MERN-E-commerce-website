@@ -8,7 +8,10 @@ import {
     LOAD_USER_REQUEST,
     LOGOUT_USER_FAIL,
     LOGOUT_USER_SUCCESS,
-    LOGOUT_USER_REQUEST
+    LOGOUT_USER_REQUEST,
+    UPDATE_USER_REQUEST,
+    UPDATE_USER_FAIL,
+    UPDATE_USER_SUCCESS
 } from '../constants/userConstants';
 
 export const userReducer = (state = { user: {} }, action) => {
@@ -20,8 +23,14 @@ export const userReducer = (state = { user: {} }, action) => {
                 loading: true,
                 isAuthenticated: false
             }
+        case UPDATE_USER_REQUEST:
+            return {
+                loading: true,
+                isAuthenticated: true
+            }
         case LOGIN_SIGNUP_SUCCESS:
         case LOAD_USER_SUCCESS:
+        case UPDATE_USER_SUCCESS:
             return {
                 ...state,
                 loading: false,
@@ -50,6 +59,7 @@ export const userReducer = (state = { user: {} }, action) => {
                 isAuthenticated: false
             }
         case LOGOUT_USER_FAIL:
+        case UPDATE_USER_FAIL:
             return {
                 ...state,
                 loading: false,

@@ -80,19 +80,19 @@ const LoginSignup = () => {
                 <form>
                     {!isLoggingIn && <div>
                         <label>Name</label>
-                        <input ref={nameRef} type="text" name="name" placeholder="example" />
+                        <input ref={nameRef} required type="text" name="name" placeholder="example" />
                     </div>}
                     <div>
                         <label>Email</label>
-                        <input ref={emailRef} type="email" name="email" placeholder="example@example.com" />
+                        <input ref={emailRef} required type="email" name="email" placeholder="example@example.com" />
                     </div>
                     <div>
                         <label>Password</label>
-                        <input ref={passwordRef} type="password" name="password" placeholder='password' />
+                        <input ref={passwordRef} required type="password" name="password" placeholder='password' />
                     </div>
                     {!isLoggingIn && <div>
                         <label>Confirm Password</label>
-                        <input ref={confirmPasswordRef} type="password" name="confirm_password" placeholder='confirm password' />
+                        <input ref={confirmPasswordRef} required type="password" name="confirm_password" placeholder='confirm password' />
                     </div>}
                 </form>
                 <ButtonGroup variant="contained" aria-label="outlined primary button group">

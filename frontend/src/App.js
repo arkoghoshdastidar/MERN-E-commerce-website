@@ -14,6 +14,7 @@ import { createTheme, ThemeProvider } from '@mui/material/styles';
 import LoginSignup from './components/LoginSignup/LoginSignup';
 import { loadUser } from './actions/userActions';
 import Profile from './components/User/Profile';
+import EditProfile from './components/User/EditProfile';
 
 const theme = createTheme({
   palette: {
@@ -49,6 +50,7 @@ function App() {
             <Route path='/search' element={<Search />}></Route>
             <Route path='/login' element={<LoginSignup />}></Route>
             <Route path='/account' element={<Profile />}></Route>
+            <Route path='/me/update' element={<EditProfile />}></Route>
           </Routes>
         </div>
         <Footer />
