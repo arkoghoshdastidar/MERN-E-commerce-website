@@ -13,7 +13,10 @@ import {
     UPDATE_USER_REQUEST,
     UPDATE_USER_FAIL,
     UPDATE_USER_SUCCESS,
-    UPDATE_USER_RESET
+    UPDATE_USER_RESET,
+    UPDATE_PASSWORD_FAIL,
+    UPDATE_PASSWORD_SUCCESS,
+    UPDATE_PASSWORD_REQUEST
 } from '../constants/userConstants';
 import { BACKEND_HOSTNAME } from '../constants/global';
 
@@ -147,13 +150,43 @@ export const editProfile = (name, email) => async (dispatch) => {
             payload: {
                 user: data
             }
-        })
+        });
     } catch (err) {
         dispatch({
             type: UPDATE_USER_FAIL, payload: {
                 err: err.response.data.error
             }
-        })
+        });
+    }
+}
+
+// update password
+export const updatePassword = (oldPassword, newPassword, confirmPassword) => async (dispatch) => {
+    try {
+        dispatch({
+            type: UPDATE_PASSWORD_REQUEST
+        });
+
+        const { data } = await axios.put(BACKEND_HOSTNAME + '/api/v1/password/update', {
+            oldPassword,
+            newPassword,
+            confirmPassword
+        });
+
+        dispatch({
+            type: UPDATE_PASSWORD_SUCCESS,
+            payload: {
+                user: data
+            }
+        });
+    } catch (err) {
+        console.log(err);
+        dispatch({
+            type: UPDATE_PASSWORD_FAIL,
+            payload: {
+                err: err.response.data.error
+            }
+        });
     }
 }
 

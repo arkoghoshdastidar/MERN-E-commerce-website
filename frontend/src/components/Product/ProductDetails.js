@@ -80,7 +80,7 @@ const ProductDetails = () => {
                             </div>
                             <div>
                                 <button onClick={subOne}>-</button>
-                                <input type="number" value={count} min={0}></input>
+                                <input type="number" value={count} readOnly min={0}></input>
                                 <button onClick={addOne}>+</button>
                             </div>
                             <button >Add to cart</button>

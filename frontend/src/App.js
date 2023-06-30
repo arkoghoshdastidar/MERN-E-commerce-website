@@ -15,6 +15,7 @@ import LoginSignup from './components/LoginSignup/LoginSignup';
 import { loadUser } from './actions/userActions';
 import Profile from './components/User/Profile';
 import EditProfile from './components/User/EditProfile';
+import UpdatePassword from './components/User/UpdatePassword';
 
 const theme = createTheme({
   palette: {
@@ -52,6 +53,7 @@ function App() {
             <Route path='/login' element={<LoginSignup />}></Route>
             <Route path='/account' element={<Profile />}></Route>
             <Route path='/me/update' element={<EditProfile />}></Route>
+            <Route path='/password/update' element={<UpdatePassword />}></Route>
           </Routes>
         </div>
         <Footer />
