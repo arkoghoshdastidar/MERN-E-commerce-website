@@ -17,8 +17,8 @@ const reducers = combineReducers({
     user: userReducer,
     profile: profileReducer,
     cart: cartReducer
-}, initialState);
+});
 
-export const store = createStore(reducers, composeWithDevTools(applyMiddleware(thunk)));
+export const store = createStore(reducers, initialState,composeWithDevTools(applyMiddleware(thunk)));
 
 export default store;

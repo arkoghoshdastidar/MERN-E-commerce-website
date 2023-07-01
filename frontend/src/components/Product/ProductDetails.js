@@ -11,9 +11,10 @@ import ReviewCard from './ReviewCard.js';
 import NoReview from './NoReview.js';
 import { useAlert } from 'react-alert'
 import { clearError } from '../../actions/productActions';
+import { addItemToCart } from '../../actions/cartAction';
 
 const ProductDetails = () => {
-    const [count, setCount] = useState(0);
+    const [count, setCount] = useState(1);
     const params = useParams();
     const dispatch = useDispatch();
     const { product, loading, error } = useSelector(state => state.productDetails);
@@ -27,7 +28,7 @@ const ProductDetails = () => {
         alert.show(error);
         dispatch(clearError());
     }
-    
+
     const options = {
         edit: true,
         value: (product) ? product.rating : 0,
@@ -42,9 +43,14 @@ const ProductDetails = () => {
     }
 
     const subOne = () => {
-        if (count > 0) {
+        if (count > 1) {
             setCount(count - 1);
         }
+    }
+
+    const addToCartHandler = () => {
+        dispatch(addItemToCart(params.id, count));
+        alert.success('Item added to cart successfully.');
     }
 
     const productName = (product && product.name) ? product.name.toUpperCase() : " ";
@@ -80,10 +86,10 @@ const ProductDetails = () => {
                             </div>
                             <div>
                                 <button onClick={subOne}>-</button>
-                                <input type="number" value={count} readOnly min={0}></input>
+                                <input type="number" value={count} readOnly min={1}></input>
                                 <button onClick={addOne}>+</button>
                             </div>
-                            <button >Add to cart</button>
+                            <button onClick={addToCartHandler} >Add to cart</button>
                             <div>
                                 <ReactStars {...options} />
                                 <div>({product.numberOfReviews} Reviews)</div>

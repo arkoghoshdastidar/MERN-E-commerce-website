@@ -19,7 +19,7 @@ h2{
 
 .button-container{
     display: flex;
-    justify-content: start;
+    justify-content: flex-start;
     align-items: center;
     margin-top: 1vmax;
 }

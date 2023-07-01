@@ -38,7 +38,7 @@ function App() {
     dispatch(loadUser());
     dispatch(getProducts());
   }, [dispatch]);
-
+    
   return (
     <ThemeProvider theme={theme}>
       <BrowserRouter>

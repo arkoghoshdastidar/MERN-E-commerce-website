@@ -11,11 +11,10 @@ export const addItemToCart = (productID, quantity) => async (dispatch, getState)
             productID,
             name: data.product.name,
             price: data.product.price,
-            image: data.product.image[0].url,
+            image: data.product.images[0].url,
             stock: data.product.stock,
             quantity
         }
     });
-
-    localStorage.setItem('cartItems', JSON.stringify(getState.cart.cartItems));
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 }
