@@ -1,4 +1,7 @@
-import { ADD_TO_CART } from '../constants/cartConstants';
+import { 
+    ADD_TO_CART,
+    REMOVE_FROM_CART
+} from '../constants/cartConstants';
 import { BACKEND_HOSTNAME } from '../constants/global';
 import axios from 'axios';
 
@@ -15,6 +18,16 @@ export const addItemToCart = (productID, quantity) => async (dispatch, getState)
             stock: data.product.stock,
             quantity
         }
-    });
+    })
+    localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
+}
+
+export const removeFromCart = (productID) => async (dispatch, getState) => {
+    dispatch({
+        type: REMOVE_FROM_CART,
+        payload: {
+            productID
+        }
+    })
     localStorage.setItem('cartItems', JSON.stringify(getState().cart.cartItems));
 }
