@@ -64,8 +64,9 @@ const LoginSignup = () => {
                 {
                     user.user.role === 'admin' && <Button size="large" variant="contained" onClick={() => navigate('/dashboard')}>Dashboard</Button>
                 }
-                <Button size="large" variant="contained" onClick={() => navigate('/orders')}>Orders</Button>
                 <Button size="large" variant="contained" onClick={() => navigate('/account')}>Profile</Button>
+                <Button size="large" variant="contained" onClick={() => navigate('/orders')}>Orders</Button>
+                <Button size="large" variant="contained" onClick={() => navigate('/cart')}>Cart</Button>
                 <Button size="large" variant="contained" onClick={() => logoutHandler()}>Logout</Button>
             </div>
         )

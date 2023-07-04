@@ -1,0 +1,26 @@
+.order-container {
+    display: flex;
+    flex-direction: column;
+    width: 90vw;
+    margin: auto;
+}
+
+.order-container>div {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 1vmax 0 1vmax 0;
+    font-size: 2vmax;
+}
+
+input, select {
+    text-align: start;
+    width: 40vmax;
+    font-size: 2vmax;
+    padding: 1vmax;
+    outline: none;
+    border: none;
+    border-radius: 1vmax;
+    margin-left: 1vmax;
+}

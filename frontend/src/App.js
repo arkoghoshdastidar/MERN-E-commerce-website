@@ -17,6 +17,7 @@ import Profile from './components/User/Profile';
 import EditProfile from './components/User/EditProfile';
 import UpdatePassword from './components/User/UpdatePassword';
 import Cart from './components/Cart/Cart';
+import Shipping from './components/Cart/Shipping';
 
 const theme = createTheme({
   palette: {
@@ -56,6 +57,7 @@ function App() {
             <Route path='/me/update' element={<EditProfile />}></Route>
             <Route path='/password/update' element={<UpdatePassword />}></Route>
             <Route path='/cart' element={<Cart />}></Route>
+            <Route path='/shipping' element={<Shipping />}></Route>
           </Routes>
         </div>
         <Footer />
