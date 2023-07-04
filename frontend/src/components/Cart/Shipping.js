@@ -44,6 +44,8 @@ const Shipping = () => {
         ) {
             alert.show('Invalid credentials, please fill the form correctly');
             return;
+        } else {
+            dispatch(saveShippingInfo({ address, city, state, country, phoneNo, pinCode }));
         }
     }
 
@@ -54,7 +56,6 @@ const Shipping = () => {
                 <input
                     type="text"
                     value={address}
-                    required
                     placeholder='Address'
                     onChange={(e) => setAddress(e.target.value)}
                 />
@@ -64,7 +65,6 @@ const Shipping = () => {
                 <input
                     type="number"
                     value={pinCode}
-                    required
                     placeholder='Pincode'
                     onChange={(e) => setPinCode(e.target.value)}
                 />
@@ -75,7 +75,6 @@ const Shipping = () => {
                     type="number"
                     placeholder='Phone Number'
                     value={phoneNo}
-                    required
                     onChange={(e) => setPhoneNo(e.target.value)}
                 />
             </div>
