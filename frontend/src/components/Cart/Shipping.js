@@ -11,6 +11,7 @@ import { FaRoad } from 'react-icons/fa';
 import { ImLocation2 } from 'react-icons/im';
 import { GrLocationPin } from 'react-icons/gr';
 import Button from '@mui/material/Button';
+import StepperCmp from './StepperCmp';
 
 const Shipping = () => {
     const { isAuthenticated } = useSelector(state => state.user);
@@ -38,19 +39,20 @@ const Shipping = () => {
         if (!address || !address.trim().length ||
             !city || !city.trim().length ||
             !pinCode || !pinCode.trim().length ||
-            !phoneNo || !phoneNo.trim().length ||
-            !state || !state.trim().length ||
+            !phoneNo || phoneNo.trim().length < 10 || phoneNo.trim().length > 10 || !state || !state.trim().length ||
             !country || !country.trim().length
         ) {
             alert.show('Invalid credentials, please fill the form correctly');
             return;
         } else {
             dispatch(saveShippingInfo({ address, city, state, country, phoneNo, pinCode }));
+            navigate('/order/confirm');
         }
     }
 
     return (
         <div className={styles['order-container']}>
+            <StepperCmp activeIndex={0} />
             <div>
                 <AiFillHome />
                 <input

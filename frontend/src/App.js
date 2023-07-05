@@ -18,6 +18,7 @@ import EditProfile from './components/User/EditProfile';
 import UpdatePassword from './components/User/UpdatePassword';
 import Cart from './components/Cart/Cart';
 import Shipping from './components/Cart/Shipping';
+import ConfirmOrder from './components/Cart/ConfirmOrder';
 
 const theme = createTheme({
   palette: {
@@ -58,6 +59,7 @@ function App() {
             <Route path='/password/update' element={<UpdatePassword />}></Route>
             <Route path='/cart' element={<Cart />}></Route>
             <Route path='/shipping' element={<Shipping />}></Route>
+            <Route path='/order/confirm' element={<ConfirmOrder />}></Route>
           </Routes>
         </div>
         <Footer />
