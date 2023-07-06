@@ -1,0 +1,16 @@
+.payment-container{
+    width: 70vw;
+    margin: auto;
+    text-align: center;
+    margin-top: 5vmax;
+}
+
+.payment-container button{
+    min-width: 8vmax;
+    font-size: 2vmax;
+    margin-top: 2vmax;
+    background-color: var(--primary-color);
+    color: white;
+    border-radius: 0.5vmax;
+    padding: 0.25vmax;
+}

@@ -28,7 +28,7 @@ const ConfirmOrder = () => {
     }, [navigate, user]);
 
     const checkoutHandler = () => {
-        sessionStorage.setItem('shippingInfo', JSON.stringify({...  shippingInfo,
+        sessionStorage.setItem('shippingInfo', JSON.stringify({...shippingInfo,
         subtotal,
         taxes: 0.18*subtotal,
         shippingCharges,
