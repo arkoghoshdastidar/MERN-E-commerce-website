@@ -3,7 +3,8 @@ import thunk from 'redux-thunk';
 import { allProductsReducer, productDetailsReducer } from './reducers/productReducer';
 import { userReducer, profileReducer } from './reducers/userReducer';
 import { cartReducer } from "./reducers/cartReducer";
-import { composeWithDevTools } from 'redux-devtools-extension'
+import { composeWithDevTools } from 'redux-devtools-extension';
+import { orderReducer } from './reducers/orderReducer';
 
 const initialState = {
     cart: {
@@ -17,7 +18,8 @@ const reducers = combineReducers({
     productDetails: productDetailsReducer,
     user: userReducer,
     profile: profileReducer,
-    cart: cartReducer
+    cart: cartReducer,
+    order: orderReducer
 });
 
 export const store = createStore(reducers, initialState,composeWithDevTools(applyMiddleware(thunk)));

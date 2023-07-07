@@ -11,7 +11,7 @@ const updateStock = async (productId, quantity) => {
 // create a new order
 const newOrder = async (req, res, next) => {
     try {
-        const { shippingInfo, orderItems, paymentInfo, itemsPrice, taxPrice, shippingPrice, totalPrice } = req.body;
+        const { shippingInfo, orderItems, paymentInfo, itemsPrice, taxPrice, shippingPrice, totalPrice } = req.body.orderDetails;
         const order = await Order.create({
             shippingInfo,
             orderItems,
@@ -28,6 +28,7 @@ const newOrder = async (req, res, next) => {
             order
         });
     } catch (err) {
+        console.log(err);
         next(new ErrorHandler(err.message, 500));
     }
 }
