@@ -13,6 +13,7 @@ import { useAlert } from 'react-alert';
 import { useNavigate } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import { clearErrors, createOrder } from '../../actions/orderAction';
+import { removeFromCart } from '../../actions/cartAction';
 const amount = (sessionStorage.getItem('shippingInfo')) ? JSON.parse(sessionStorage.getItem('shippingInfo')).total : 10;
 
 const CheckoutForm = () => {
@@ -78,6 +79,10 @@ const CheckoutForm = () => {
         };
 
         dispatch(createOrder(data));
+
+        cartItems.forEach(item => {
+            dispatch(removeFromCart(item.productID));
+        })
 
         alert.success('Payment successful');
         navigate('/orders');

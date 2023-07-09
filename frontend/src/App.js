@@ -20,6 +20,7 @@ import Cart from './components/Cart/Cart';
 import Shipping from './components/Cart/Shipping';
 import ConfirmOrder from './components/Cart/ConfirmOrder';
 import Payment from './components/Cart/Payment';
+import Order from './components/Order/Order';
 
 const theme = createTheme({
   palette: {
@@ -62,6 +63,7 @@ function App() {
             <Route path='/shipping' element={<Shipping />}></Route>
             <Route path='/order/confirm' element={<ConfirmOrder />}></Route>
             <Route path='/process/checkout' element={<Payment />}></Route>
+            <Route path='/orders' element={<Order />}></Route>
           </Routes>
         </div>
         <Footer />

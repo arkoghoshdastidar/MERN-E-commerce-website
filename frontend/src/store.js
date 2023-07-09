@@ -4,7 +4,7 @@ import { allProductsReducer, productDetailsReducer } from './reducers/productRed
 import { userReducer, profileReducer } from './reducers/userReducer';
 import { cartReducer } from "./reducers/cartReducer";
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { orderReducer } from './reducers/orderReducer';
+import { orderReducer, myOrderReducer } from './reducers/orderReducer';
 
 const initialState = {
     cart: {
@@ -19,7 +19,8 @@ const reducers = combineReducers({
     user: userReducer,
     profile: profileReducer,
     cart: cartReducer,
-    order: orderReducer
+    order: orderReducer,
+    myOrders: myOrderReducer
 });
 
 export const store = createStore(reducers, initialState,composeWithDevTools(applyMiddleware(thunk)));
