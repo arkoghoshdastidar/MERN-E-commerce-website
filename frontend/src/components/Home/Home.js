@@ -10,7 +10,7 @@ import { getProducts } from '../../actions/productActions';
 
 const Home = () => {
     const dispatch = useDispatch();
-    const { loading, products, error, productCount } = useSelector(state => state.products);
+    const { loading, products, error } = useSelector(state => state.products);
     const alert = useAlert();
 
     useEffect(() => {

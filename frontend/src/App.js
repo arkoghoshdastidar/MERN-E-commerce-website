@@ -21,6 +21,7 @@ import Shipping from './components/Cart/Shipping';
 import ConfirmOrder from './components/Cart/ConfirmOrder';
 import Payment from './components/Cart/Payment';
 import Order from './components/Order/Order';
+import OrderDetails from './components/Order/OrderDetails';
 
 const theme = createTheme({
   palette: {
@@ -64,6 +65,7 @@ function App() {
             <Route path='/order/confirm' element={<ConfirmOrder />}></Route>
             <Route path='/process/checkout' element={<Payment />}></Route>
             <Route path='/orders' element={<Order />}></Route>
+            <Route path='/orders/:orderID' element={<OrderDetails />}></Route>
           </Routes>
         </div>
         <Footer />

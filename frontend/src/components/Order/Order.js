@@ -6,10 +6,13 @@ import Loader from '../layout/Loader/Loader';
 import NoReview from '../Product/NoReview';
 import Pagination from '@mui/material/Pagination';
 import OrderItem from './OrderItem';
+import { useNavigate } from 'react-router-dom';
 
 const Order = () => {
+    const navigate = useNavigate();
     const dispatch = useDispatch();
     const { orders, loading } = useSelector(state => state.myOrders);
+    const { isAuthenticated } = useSelector(state => state.user);
     let myOrders = [];
     const [currPageNo, setCurrPageNo] = useState(1);
     const ordersPerPage = 10;
@@ -36,8 +39,11 @@ const Order = () => {
     });
 
     useEffect(() => {
+        if(!isAuthenticated) {
+            return navigate('/login');
+        }
         dispatch(getMyOrders());
-    }, [dispatch]);
+    }, [dispatch, isAuthenticated, navigate]);
 
     if (myOrders.length === 0) {
         return <NoReview text={"No Order's"} />
