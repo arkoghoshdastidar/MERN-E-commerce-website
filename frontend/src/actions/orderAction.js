@@ -5,7 +5,10 @@ import {
     CREATE_ORDER_FAIL,
     MY_ORDER_REQUEST,
     MY_ORDER_SUCCESS,
-    MY_ORDER_FAIL
+    MY_ORDER_FAIL,
+    ORDER_DETAILS_REQUEST,
+    ORDER_DETAILS_SUCCESS,
+    ORDER_DETAILS_FAIL
 } from '../constants/orderConstants';
 import { BACKEND_HOSTNAME } from '../constants/global';
 import axios from 'axios';
@@ -17,16 +20,16 @@ const config = {
 };
 
 export const createOrder = (orderDetails) => async (dispatch) => {
-    try{
+    try {
         dispatch({
             type: CREATE_ORDER_REQUEST
         });
-    
-        const { data } = await axios.post(BACKEND_HOSTNAME+'/api/v1/order/new', {
+
+        const { data } = await axios.post(BACKEND_HOSTNAME + '/api/v1/order/new', {
             orderDetails,
             config
         });
-        
+
 
         dispatch({
             type: CREATE_ORDER_SUCCESS,
@@ -34,7 +37,7 @@ export const createOrder = (orderDetails) => async (dispatch) => {
                 order: data
             }
         });
-    }catch(err){
+    } catch (err) {
         dispatch({
             type: CREATE_ORDER_FAIL,
             payload: {
@@ -45,12 +48,12 @@ export const createOrder = (orderDetails) => async (dispatch) => {
 }
 
 export const getMyOrders = () => async (dispatch) => {
-    try{
+    try {
         dispatch({
             type: MY_ORDER_REQUEST
         });
 
-        const { data } = await axios.get(BACKEND_HOSTNAME+'/api/v1/orders/me');
+        const { data } = await axios.get(BACKEND_HOSTNAME + '/api/v1/orders/me');
 
         dispatch({
             type: MY_ORDER_SUCCESS,
@@ -58,9 +61,33 @@ export const getMyOrders = () => async (dispatch) => {
                 orders: data.orders
             }
         });
-    }catch(err){
+    } catch (err) {
         dispatch({
             type: MY_ORDER_FAIL,
+            payload: {
+                error: err.response.data.message
+            }
+        })
+    }
+}
+
+export const getOrderDetails = (orderID) => async (dispatch) => {
+    try {
+        dispatch({
+            type: ORDER_DETAILS_REQUEST
+        });
+
+        const { data } = await axios.get(BACKEND_HOSTNAME + '/api/v1/order/' + orderID);
+
+        dispatch({
+            type: ORDER_DETAILS_SUCCESS,
+            payload: {
+                orderDetails: data
+            }
+        });
+    } catch (err) {
+        dispatch({
+            type: ORDER_DETAILS_FAIL,
             payload: {
                 error: err.response.data.message
             }
