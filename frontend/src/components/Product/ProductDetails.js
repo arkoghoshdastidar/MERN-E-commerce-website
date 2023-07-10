@@ -49,6 +49,10 @@ const ProductDetails = () => {
     }
 
     const addToCartHandler = () => {
+        if(product.stock === 0){
+            alert.show('Product out of stock');
+            return;
+        }
         dispatch(addItemToCart(params.id, count));
         alert.success('Item added to cart successfully.');
     }
