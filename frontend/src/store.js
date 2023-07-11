@@ -1,6 +1,6 @@
 import { legacy_createStore as createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from 'redux-thunk';
-import { allProductsReducer, productDetailsReducer } from './reducers/productReducer';
+import { allProductsReducer, productDetailsReducer, addReviewReducer } from './reducers/productReducer';
 import { userReducer, profileReducer } from './reducers/userReducer';
 import { cartReducer } from "./reducers/cartReducer";
 import { composeWithDevTools } from 'redux-devtools-extension';
@@ -21,7 +21,8 @@ const reducers = combineReducers({
     cart: cartReducer,
     order: orderReducer,
     myOrders: myOrderReducer,
-    orderDetails: orderDetailsReducer
+    orderDetails: orderDetailsReducer,
+    newReview: addReviewReducer
 });
 
 export const store = createStore(reducers, initialState,composeWithDevTools(applyMiddleware(thunk)));

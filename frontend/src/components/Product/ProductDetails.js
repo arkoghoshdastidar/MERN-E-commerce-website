@@ -1,8 +1,8 @@
 import styles from './ProductDetails.module.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams } from 'react-router-dom';
-import { useEffect, useState } from 'react';
-import { getProductDetails } from '../../actions/productActions';
+import { useEffect, useState, useRef } from 'react';
+import { getProductDetails, addNewReivew } from '../../actions/productActions';
 import "react-responsive-carousel/lib/styles/carousel.min.css"; // requires a loader
 import { Carousel } from 'react-responsive-carousel';
 import Loader from '../layout/Loader/Loader';
@@ -18,11 +18,16 @@ const ProductDetails = () => {
     const params = useParams();
     const dispatch = useDispatch();
     const { product, loading, error } = useSelector(state => state.productDetails);
+    const { isAuthenticated } = useSelector(state => state.user);
     const alert = useAlert();
+    const textAreaRef = useRef();
+    const [rating, setRating] = useState(null);
+    const productId = params.id;
+    const { reviewLoading } = useSelector(state => state.newReview);
 
     useEffect(() => {
-        dispatch(getProductDetails(params.id));
-    }, [dispatch, params.id]);
+        dispatch(getProductDetails(productId));
+    }, [dispatch, productId, reviewLoading]);
 
     if (error) {
         alert.show(error);
@@ -49,7 +54,7 @@ const ProductDetails = () => {
     }
 
     const addToCartHandler = () => {
-        if(product.stock === 0){
+        if (product.stock === 0) {
             alert.show('Product out of stock');
             return;
         }
@@ -59,10 +64,27 @@ const ProductDetails = () => {
 
     const productName = (product && product.name) ? product.name.toUpperCase() : " ";
 
+    const submitReview = async () => {
+        const comment = textAreaRef.current.value.trim();
+        if (comment.length === 0 || rating === null) {
+            alert.show('Enter some text and add a rating to submit review');
+            return;
+        } else {
+            dispatch(addNewReivew({comment, rating, productId}));
+            alert.success('Review added successfully.');
+        }
+        textAreaRef.current.value = '';
+        setRating(null);
+    }
+
+    const ratingChangeHandler = (newRating) => {
+        setRating(newRating);
+    }
+
     return (
         <>
             <div className={styles['container']}>
-                {loading ? <Loader /> : product &&
+                {loading || reviewLoading ? <Loader /> : product &&
                     <>
                         <div className={styles['carousel-container']}>
                             {product.images && <Carousel className={styles['image']}>
@@ -95,10 +117,17 @@ const ProductDetails = () => {
                             </div>
                             <button onClick={addToCartHandler} >Add to cart</button>
                             <div>
-                                <ReactStars {...options} />
-                                <div>({product.numberOfReviews} Reviews)</div>
+                                <ReactStars onChange={ratingChangeHandler} {...options} />
                             </div>
-                            <button>Submit Review</button>
+                            {/* review container */}
+                            {
+                                isAuthenticated && <>
+                                    <div>
+                                        <textarea ref={textAreaRef} className={styles['text-area']} />
+                                    </div>
+                                    <button onClick={submitReview}>Submit Review</button>
+                                </>
+                            }
                         </div>
                     </>
                 }

@@ -8,7 +8,10 @@ import {
     PRODUCT_DETAILS_REQUEST,
     PRODUCT_DETAILS_SUCCESS,
     PRODUCT_DETAILS_FAIL,
-    CLEAR_ERRORS
+    CLEAR_ERRORS,
+    ADD_REVIEW_FAIL,
+    ADD_REVIEW_REQUEST,
+    ADD_REVIEW_SUCCESS
 } from '../constants/productConstants';
 
 // action to get all products from database
@@ -70,6 +73,38 @@ export const getProductDetails = (id) => {
                     err: err.message
                 }
             });
+        }
+    }
+}
+
+// submit review
+export const addNewReivew = ( {comment, rating, productId} ) => {
+    return async (dispatch) => {
+        try{
+            dispatch({
+                type: ADD_REVIEW_REQUEST
+            });
+
+            const { data } = await axios.put(BACKEND_HOSTNAME + '/api/v1/review', {
+                comment,
+                rating,
+                productId
+            });
+
+            dispatch({
+                type: ADD_REVIEW_SUCCESS,
+                payload: {
+                    data
+                }
+            })
+
+        }catch(err){
+            dispatch({
+                type: ADD_REVIEW_FAIL,
+                payload: {
+                    err: 'Failed to add review'
+                }
+            })
         }
     }
 }

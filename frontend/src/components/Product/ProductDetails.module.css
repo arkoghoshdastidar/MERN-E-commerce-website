@@ -87,6 +87,16 @@ button {
     padding-bottom: 1vmax;
 }
 
+.text-area {
+    outline: none;
+    border: none;
+    width: 40vmax;
+    height:15vmax;
+    resize: none;
+    font-size: 0.8rem;
+    padding: 1vmax;
+}
+
 @media screen and (max-width: 1000px) {
     .container {
         flex-direction: column;
