@@ -90,9 +90,10 @@ button {
 .text-area {
     outline: none;
     border: none;
-    width: 40vmax;
-    height:15vmax;
+    height: auto;
     resize: none;
+    width: 20vmax;
+    height: 10vmax;
     font-size: 0.8rem;
     padding: 1vmax;
 }
@@ -107,6 +108,11 @@ button {
         width: 100%;
         text-align: center;
         align-items: center;
+    }
+
+    .text-area{
+        width: 30vmax;
+        height: 15vmax;
     }
 }
 
