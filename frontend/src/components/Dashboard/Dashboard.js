@@ -26,7 +26,13 @@ const Dashboard = () => {
                 <div className={styles['dashboard']}>
                     <Sidebar />
                     <div className={styles['details-board']}>
-                        Welcome Back To The Dashboard
+                        <h1>Welcome Back To The Dashboard</h1>
+                        <div className={styles['total-amount']}>Total ₹50</div>
+                        <div className={styles['summary']}>
+                            <div>Products <br/> <span>150</span></div>
+                            <div>Users <br/> <span>10</span></div>
+                            <div>Orders <br/> <span>100</span></div>
+                        </div>
                     </div>
                 </div>
             </>}

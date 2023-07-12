@@ -5,6 +5,29 @@
     grid-gap: 2vmax;
 }
 
+.total-amount {
+    text-align: center;
+    font-size: 2.5vmax;
+    background: var(--primary-color);
+    padding: 1vmax;
+    color: white;
+}
+
+.summary{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+}
+
+.details-board  h1 {
+    text-align: center;
+}
+
+.summary > div{
+    text-align: center;
+    border: 2px solid black;
+    padding: 1vmax;
+}
+
 @media (max-width: 600px) {
     .dashboard {
         grid-template-columns: 1fr;
