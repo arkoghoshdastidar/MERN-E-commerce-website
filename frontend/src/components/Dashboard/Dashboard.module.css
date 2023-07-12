@@ -1,0 +1,12 @@
+.dashboard {
+    display: grid;
+    grid-template-columns: 1.5fr 4fr;
+    padding: 2vmax;
+    grid-gap: 2vmax;
+}
+
+@media (max-width: 600px) {
+    .dashboard {
+        grid-template-columns: 1fr;
+    }
+}

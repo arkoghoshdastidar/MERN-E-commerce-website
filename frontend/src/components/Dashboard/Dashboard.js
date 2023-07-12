@@ -3,6 +3,7 @@ import { useSelector } from 'react-redux';
 import { useNavigate } from 'react-router-dom';
 import { useEffect } from 'react';
 import Loader from '../layout/Loader/Loader';
+import Sidebar from './Sidebar';
 
 const Dashboard = () => {
     const { user, loading, isAuthenticated } = useSelector(state => state.user);
@@ -22,7 +23,12 @@ const Dashboard = () => {
     return (
         <>
             {loading ? <Loader /> : <>
-                <div>Dashboard</div>
+                <div className={styles['dashboard']}>
+                    <Sidebar />
+                    <div className={styles['details-board']}>
+                        Welcome Back To The Dashboard
+                    </div>
+                </div>
             </>}
         </>
     )
