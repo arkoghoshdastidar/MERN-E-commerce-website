@@ -1,10 +1,10 @@
 import { legacy_createStore as createStore, applyMiddleware, combineReducers } from "redux";
 import thunk from 'redux-thunk';
 import { allProductsReducer, productDetailsReducer, addReviewReducer } from './reducers/productReducer';
-import { userReducer, profileReducer } from './reducers/userReducer';
+import { userReducer, profileReducer, allUsers } from './reducers/userReducer';
 import { cartReducer } from "./reducers/cartReducer";
 import { composeWithDevTools } from 'redux-devtools-extension';
-import { orderReducer, myOrderReducer, orderDetailsReducer } from './reducers/orderReducer';
+import { orderReducer, myOrderReducer, orderDetailsReducer, allOrders } from './reducers/orderReducer';
 
 const initialState = {
     cart: {
@@ -22,7 +22,9 @@ const reducers = combineReducers({
     order: orderReducer,
     myOrders: myOrderReducer,
     orderDetails: orderDetailsReducer,
-    newReview: addReviewReducer
+    newReview: addReviewReducer,
+    allOrders: allOrders,
+    allUsers: allUsers
 });
 
 export const store = createStore(reducers, initialState,composeWithDevTools(applyMiddleware(thunk)));

@@ -60,8 +60,8 @@ export const getAllAdminProducts = () => {
                 type: ADMIN_PRODUCTS_REQUEST
             });
 
-            const { data } = await axios.get(BACKEND_HOSTNAME+'api/v1/products/admin');
-
+            const { data } = await axios.get(BACKEND_HOSTNAME+'/api/v1/products/admin');
+            
             dispatch({
                 type: ADMIN_PRODUCTS_SUCCESS,
                 payload: {

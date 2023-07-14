@@ -8,7 +8,10 @@ import {
     MY_ORDER_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
-    ORDER_DETAILS_FAIL  
+    ORDER_DETAILS_FAIL,
+    ALL_ORDER_FAIL,
+    ALL_ORDER_SUCCESS,
+    ALL_ORDER_REQUEST 
 } from '../constants/orderConstants';
 
 export const orderReducer = (state = { orders: {} }, action) => {
@@ -67,6 +70,35 @@ export const myOrderReducer = (state = {orders: []}, action) => {
                 error: null
             }
         default:
+            return state;
+    }
+}
+
+export const allOrders = (state = { orders: []}, action) => {
+    switch (action.type){
+        case ALL_ORDER_REQUEST:
+            return {
+                oLoading: true
+            }
+        case ALL_ORDER_SUCCESS:
+            return {
+                ...state,
+                oLoading: false,
+                orderDetails: action.payload.orderDetails
+            }
+        case ALL_ORDER_FAIL:
+            return {
+                ...state,
+                oLoading: false,
+                orderDetails: {},
+                error: action.payload.error
+            }
+        case CLEAR_ERRORS:
+            return {
+                ...state,
+                error: null
+            }
+        default: 
             return state;
     }
 }

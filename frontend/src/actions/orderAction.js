@@ -8,7 +8,10 @@ import {
     MY_ORDER_FAIL,
     ORDER_DETAILS_REQUEST,
     ORDER_DETAILS_SUCCESS,
-    ORDER_DETAILS_FAIL
+    ORDER_DETAILS_FAIL,
+    ALL_ORDER_FAIL,
+    ALL_ORDER_REQUEST,
+    ALL_ORDER_SUCCESS
 } from '../constants/orderConstants';
 import { BACKEND_HOSTNAME } from '../constants/global';
 import axios from 'axios';
@@ -88,6 +91,31 @@ export const getOrderDetails = (orderID) => async (dispatch) => {
     } catch (err) {
         dispatch({
             type: ORDER_DETAILS_FAIL,
+            payload: {
+                error: err.response.data.message
+            }
+        })
+    }
+}
+
+export const getAllOrders = () => async (dispatch) => {
+    try {
+        dispatch({
+            type: ALL_ORDER_REQUEST
+        });
+
+        const { data } = await axios.get(BACKEND_HOSTNAME + '/api/v1/admin/orders');
+        console.log(data);
+
+        dispatch({
+            type: ALL_ORDER_SUCCESS,
+            payload: {
+                orderDetails: data
+            }
+        })
+    } catch (err) {
+        dispatch({
+            type: ALL_ORDER_FAIL,
             payload: {
                 error: err.response.data.message
             }

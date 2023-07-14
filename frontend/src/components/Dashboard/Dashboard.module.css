@@ -28,6 +28,34 @@
     padding: 1vmax;
 }
 
+.all-products-container{
+    width: 100%;
+    min-height: 80vh;
+}
+
+.products{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr 1fr 1fr;
+    background-color: var(--primary-color);
+    padding: 1vmax;
+    color: white;
+}
+
+.products > div{
+    text-align: center;
+    overflow: hidden;
+    font-size: 1vmax;
+}
+
+.hide-bg{
+    background: transparent;
+    color: black;
+}
+
+.delete-btn, .edit-btn:hover{
+    cursor: pointer;
+}
+
 @media (max-width: 600px) {
     .dashboard {
         grid-template-columns: 1fr;

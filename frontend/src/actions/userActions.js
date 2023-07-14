@@ -16,7 +16,10 @@ import {
     UPDATE_USER_RESET,
     UPDATE_PASSWORD_FAIL,
     UPDATE_PASSWORD_SUCCESS,
-    UPDATE_PASSWORD_REQUEST
+    UPDATE_PASSWORD_REQUEST,
+    ALL_USER_REQUEST,
+    ALL_USER_FAIL,
+    ALL_USER_SUCCESS
 } from '../constants/userConstants';
 import { BACKEND_HOSTNAME } from '../constants/global';
 
@@ -180,12 +183,35 @@ export const updatePassword = (oldPassword, newPassword, confirmPassword) => asy
             }
         });
     } catch (err) {
-        console.log(err);
         dispatch({
             type: UPDATE_PASSWORD_FAIL,
             payload: {
                 err: err.response.data.error
             }
+        });
+    }
+}
+
+// get all users
+export const getAllUsers = () => async (dispatch) => {
+    try{
+        dispatch({
+            type: ALL_USER_REQUEST
+        });
+
+        const { data } = await axios.get(BACKEND_HOSTNAME+'/api/v1/admin/users');
+
+        dispatch({
+            type: ALL_USER_SUCCESS,
+            payload : {
+                userDetails: data
+            }
+        });
+    }catch(err){
+        console.log(err);
+        dispatch({
+            type: ALL_USER_FAIL,
+            error: err.response.data.error
         });
     }
 }
