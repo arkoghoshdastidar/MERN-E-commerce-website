@@ -38,6 +38,20 @@ const getAllProducts = async (req, res, next) => {
     }
 }
 
+// get all the products --admin
+const getAllProductsAdmin = async (req, res, next) => {
+    try {
+        const products = await Product.find();
+
+        res.status(200).json({
+            products: products,
+            success: true
+        });
+    } catch (err) {
+        return next(new ErrorHandler(err.message, 500));
+    }
+}
+
 // admin-route : update product
 const updateProduct = async (req, res, next) => {
     try {
@@ -202,4 +216,4 @@ const deleteProductReview = async (req, res, next) => {
     }
 }
 
-module.exports = { getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails, createProductReview, getProductReviews, deleteProductReview };
+module.exports = { getAllProductsAdmin, getAllProducts, createProduct, updateProduct, deleteProduct, getProductDetails, createProductReview, getProductReviews, deleteProductReview };

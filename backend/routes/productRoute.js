@@ -3,9 +3,11 @@ const router = express.Router();
 const { isUserAuthenticated, authorizeRole } = require('../middlewares/auth');
 const { getAllProducts, createProduct, updateProduct, deleteProduct,
     getProductDetails, createProductReview, getProductReviews,
-    deleteProductReview } = require('../controllers/productController');
+    deleteProductReview, getAllProductsAdmin } = require('../controllers/productController');
 
 router.get('/products', getAllProducts);
+
+router.get('/products/admin', isUserAuthenticated, authorizeRole("admin"), getAllProductsAdmin);
 
 router.post('/admin/product/new', isUserAuthenticated, authorizeRole("admin"), createProduct);
 

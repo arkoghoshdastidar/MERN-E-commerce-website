@@ -23,6 +23,7 @@ import Payment from './components/Cart/Payment';
 import Order from './components/Order/Order';
 import OrderDetails from './components/Order/OrderDetails';
 import Dashboard from './components/Dashboard/Dashboard';
+import ProductList from './components/Dashboard/ProductList';
 
 const theme = createTheme({
   palette: {
@@ -68,6 +69,7 @@ function App() {
             <Route path='/orders' element={<Order />}></Route>
             <Route path='/orders/:orderID' element={<OrderDetails />}></Route>
             <Route path='/dashboard' element={<Dashboard />}></Route>
+            <Route path='/admin/all/products' element={<ProductList />}></Route>
           </Routes>
         </div>
         <Footer />

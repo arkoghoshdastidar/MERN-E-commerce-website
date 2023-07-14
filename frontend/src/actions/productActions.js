@@ -11,7 +11,10 @@ import {
     CLEAR_ERRORS,
     ADD_REVIEW_FAIL,
     ADD_REVIEW_REQUEST,
-    ADD_REVIEW_SUCCESS
+    ADD_REVIEW_SUCCESS,
+    ADMIN_PRODUCTS_FAIL,
+    ADMIN_PRODUCTS_REQUEST,
+    ADMIN_PRODUCTS_SUCCESS
 } from '../constants/productConstants';
 
 // action to get all products from database
@@ -48,6 +51,34 @@ export const getProducts = (keyword="", pageNo=1, price=[0, 10000], category=nul
         }
     }
 }
+
+// get all products admin
+export const getAllAdminProducts = () => {
+    return async (dispatch) => {
+        try {
+            dispatch({
+                type: ADMIN_PRODUCTS_REQUEST
+            });
+
+            const { data } = await axios.get(BACKEND_HOSTNAME+'api/v1/products/admin');
+
+            dispatch({
+                type: ADMIN_PRODUCTS_SUCCESS,
+                payload: {
+                    products: data.products
+                }
+            });
+        } catch (err) {
+            dispatch({
+                type: ADMIN_PRODUCTS_FAIL,
+                payload: {
+                    err: err.message
+                }
+            });
+        }
+    }
+}
+
   
 // get the product details of a product
 export const getProductDetails = (id) => {
